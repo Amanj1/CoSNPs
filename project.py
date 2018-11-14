@@ -2,7 +2,8 @@ import sys # for exiting on errors
 import numpy as np
 import string
 import random
-import matplotlib.pyplot as plt
+import pysam
+#import matplotlib.pyplot as plt
 import BamProcess as bam
 
 def readFile(name):#empty now
@@ -26,8 +27,10 @@ def printOneGene(seq,index):
 	return None
 
 def main():
-	fileName = "pb_467_2_sr_blasr.bam"
+	#fileName = "pb_467_2_sr_blasr.bam"
+	fileName = "my_sorted.bam"
 	myseq=bam.datafile(file=fileName,chr="chr17")
+	myseq.seq
 	
 	myseq.FetchChrPos()
 	return
