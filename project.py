@@ -30,10 +30,8 @@ def main():
 	#fileName = "pb_467_2_sr_blasr.bam"
 	fileName = "my_sorted.bam"
 	myseq=bam.datafile(file=fileName,chr="chr17")
-	myseq.seq
-	
 	myseq.FetchChrPos()
+	print (myseq.seq[1])
 	return
 
 main()
-
