@@ -1,0 +1,8 @@
+>Pos1_ref_hg19_dna range=chr17:7578253-7578273 5'pad=10 3'pad=10 strand=+ repeatMasking=none
+CCTTCCACTCGGATAAGATGC
+>Pos1_alt_hg19_dna range=chr17:7578253-7578273 5'pad=10 3'pad=10 strand=+ repeatMasking=none
+CCTTCCACTCAGATAAGATGC
+>Pos2_ref_hg19_dna range=chr17:7579302-7579322 5'pad=10 3'pad=10 strand=+ repeatMasking=none
+GGCAACTGACCGTGCAAGTCA
+>Pos2_alt_hg19_dna range=chr17:7579302-7579322 5'pad=10 3'pad=10 strand=+ repeatMasking=none
+GGCAACTGACTGTGCAAGTCA
