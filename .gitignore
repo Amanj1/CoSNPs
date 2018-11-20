@@ -1,2 +1,4 @@
+# Ignore all files starting with .
+.*
 # Ignore ref genome folder
 hg19/
