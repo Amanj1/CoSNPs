@@ -1,6 +1,7 @@
 import sys
 
 # python scriptWindow chr1:20 5 1 ########example####
+# Python scriptWindow 'position in chr' 'window size' 'index when generating tmp files'
 
 def WriteToFile(fileName, strData, s):
 	fileName = fileName +"_" + s +".bed"
