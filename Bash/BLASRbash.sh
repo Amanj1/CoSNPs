@@ -11,6 +11,7 @@ do
    echo $c
    cat Header.sam > tmp.sam
    samtools view $inBAM | awk '{if((NR=='$c')) print $0}' >> tmp.sam
+   samtools view -h -b tmp.sam > tmp.bam
    samtools view tmp.sam | awk '{print $1}'
    samtools bam2fq tmp.sam > tmp.fastq
    awk ' NR %4 == 1' tmp.fastq
