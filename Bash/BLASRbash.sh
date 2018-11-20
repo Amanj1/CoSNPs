@@ -3,7 +3,7 @@ rm results.sam
 inBAM='../PacBioRead/120bpSelected.bam'
 x="$(samtools view $inBAM|wc -l)"
 y=40
-z=35
+z=38
 query='../Query/query_15bpUP_15bpDown.fasta'
 samtools view -H $inBAM > Header.sam
 for (( c=$z; c<=$y; c++ ))
@@ -14,7 +14,7 @@ do
    samtools view tmp.sam | awk '{print $1}'
    samtools bam2fq tmp.sam > tmp.fastq
    awk ' NR %4 == 1' tmp.fastq
-   blasr -r tmp.fastq -q $query -o tmpResult.sam
+   blasr tmp.sam $query -o tmpResult.sam -sam -hitPolicy randombest -nproc 2 -out tmpResult.sam
    samtools view tmpResult.sam | awk '{print $1,$2,$3,$4}'
    #TODO add header for results.bam
 
