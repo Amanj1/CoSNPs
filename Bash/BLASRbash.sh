@@ -15,7 +15,7 @@ do
    samtools view tmp.sam | awk '{print $1}'
    samtools bam2fq tmp.sam > tmp.fastq
    awk ' NR %4 == 1' tmp.fastq
-   blasr tmp.sam $query -sam -hitPolicy randombest -nproc 2 -out tmpResult.sam
+   blasr tmp.bam $query -sam -hitPolicy randombest -nproc 2 -out tmpResult.sam
    samtools view tmpResult.sam | awk '{print $1,$2,$3,$4}'
    #TODO add header for results.bam
 
