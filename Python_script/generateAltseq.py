@@ -48,7 +48,7 @@ def main():
 	prevData = readFileRefseq(sequenceFile)
 	Header = prevData[0]
 	Header = Header.replace(">", "")
-	print(prevData)
+	#print(prevData)
 	seqArr = StringToArray(prevData[1])
 	if seqArr[len(seqArr)-1] == '\n':
 		seqArr.remove('\n')
