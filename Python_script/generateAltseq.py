@@ -47,9 +47,10 @@ def main():
 	suffix = sys.argv[4]
 	prevData = readFileRefseq(sequenceFile)
 	Header = prevData[0]
+	Header = Header.replace(">", "")
 	print(prevData)
 	seqArr = StringToArray(prevData[1])
-	if seqArr[len(seqArr)] == '\n':
+	if seqArr[len(seqArr)-1] == '\n':
 		seqArr.remove('\n')
 	p = FindPosMid(seqArr)
 	newSeqArr = InsertInSeq(seqArr,p,nucleotide)
