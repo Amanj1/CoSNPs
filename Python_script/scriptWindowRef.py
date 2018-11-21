@@ -1,6 +1,6 @@
 import sys
 
-# python scriptWindow chr1:20 5 1 '1'or'2' ########example####
+# python scriptWindow chr1:20 5 1 ########example####
 # Python scriptWindow 'position in chr' 'window size' 'index when generating tmp files' 'position of mutation'
 # WriteToFile("tmpUP", outputUP, suffix) - Generates positions for PacBio reads UpStream
 # WriteToFile("tmpDown", outputDown, suffix)  - Generates positions for PacBio reads DownStream
@@ -21,7 +21,6 @@ def main():
 	Pos = sys.argv[1]
 	window = sys.argv[2]
 	suffix = sys.argv[3]
-	positionMutation = sys.argv[4]
 	arrPos = Pos.split(':')
 	Up = int(arrPos[1]) + int(window)
 	Down = int(arrPos[1]) - int(window) -1
@@ -30,11 +29,6 @@ def main():
 	outputUP = str(arrPos[0]) + '\t' + str(Up)  +'\t' + str(Up1)
 	outputDown = str(arrPos[0]) + '\t' + str(Down)  +'\t' + str(Down1)
 	CoverRegion = str(arrPos[0]) + '\t' + str(Down)  +'\t' + str(Up)
-	#Header = str1 = ">Pos"+positionMutation+"Ref_hg19_dna"
-	
-	#WriteToFile("tmpUP", outputUP, suffix)
-	#WriteToFile("tmpDown", outputDown, suffix)
-	##WriteToFile("tmpPosRef", Header, suffix)
 	WriteToFile("tmpPosRef", CoverRegion, suffix)
 	return
 	
