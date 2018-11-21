@@ -19,4 +19,7 @@ python ../Python_script/generateAltseq.py $altNec2 tmpFasta.fasta $posM2 tmp
 rm tmpFasta.fasta
 rm tmpPosRef_1.bed tmpPosRef_2.bed
 cat query_Uptmp* >> query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
+awk 'NF' query_Up${WindowSize}bp_Down${WindowSize}bp.fasta > tmpSomething.fasta
+rm query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
 rm query_Uptmp*
+cat tmpSomething.fasta > query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
