@@ -24,7 +24,7 @@ do
    awk ' NR %4 == 1' tmp.fastq
    cat tmp.fastq  | paste - - - - | awk -F '\t' '{print ">"$1 ; print $2;}' > tmp.fasta
    blasr $query tmp.fasta --minMatch 8 --minSubreadLength 1 --minReadLength 1 --maxScore 400 -m 0 \
-    >> ../Output/blasrResult_Win${WindowSize}.txt
+    >> ../Output/blasrResult_halfWin${WindowSize}.txt
     sleep 1
     rm -f tmp*
 done
