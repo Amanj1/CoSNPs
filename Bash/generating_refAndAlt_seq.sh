@@ -1,9 +1,11 @@
 #!/bin/bash
+echo "Type the half-window size (Intenger) that you want, followed by [ENTER]:"
+read WindowSize
 pos1='chr17:7578263'
 altNec1='A'
 pos2='chr17:7579312'
 altNec2='T'
-WindowSize='20'
+#WindowSize='20'
 #TODO more dynamic, only for 1 and 2 for now
 posM1='1'
 posM2='2'
@@ -23,3 +25,5 @@ awk 'NF' query_Up${WindowSize}bp_Down${WindowSize}bp.fasta > tmpSomething.fasta
 rm query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
 rm query_Uptmp*
 cat tmpSomething.fasta > query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
+mv query_Up${WindowSize}bp_Down${WindowSize}bp.fasta ../Query/
+sh BLASRbash.sh ../Query/query_Up${WindowSize}bp_Down${WindowSize}bp.fasta $WindowSize
