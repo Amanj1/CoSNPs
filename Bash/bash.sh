@@ -4,7 +4,7 @@ inBAM='../PacBioRead/120bpSelected.bam'
 x="$(samtools view $inBAM|wc -l)"
 y=40
 z=35
-query='../Query/Pos2Ref_20UpDown.fasta'
+query='../Query/query_15bpUP_15bpDown.fasta'
 samtools view -H $inBAM > Header.sam
 for (( c=$z; c<=$y; c++ ))
 do
@@ -24,3 +24,4 @@ do
    #rm -f tmp.sam
    #rm -f tmp.fastq
 done
+rm -f Header.sam

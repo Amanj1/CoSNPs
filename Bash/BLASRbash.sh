@@ -1,7 +1,7 @@
 #!/bin/bash
 #rm results.sam
 #rm blasrResult.txt
-mkdir ../output
+mkdir -p ../output
 #TODO remove the same name file
 #rm blasrResult.txt
 inBAM='../PacBioRead/120bpSelected.bam'
@@ -11,6 +11,7 @@ z=38
 #auto add query in command line
 query=$1
 WindowSize=$2
+rm -f ../Output/blasrResult_halfWin${WindowSize}.txt
 #query='../Query/query_seqRef_Up20_down20.fa'
 samtools view -H $inBAM > Header.sam
 for (( c=$z; c<=$y; c++ ))
