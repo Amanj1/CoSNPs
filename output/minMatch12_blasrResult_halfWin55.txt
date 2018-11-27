@@ -1,0 +1,324 @@
+    nMatch: 107
+ nMisMatch: 1
+      nIns: 1
+      nDel: 3
+      %sim: 95.5357
+     Score: -509
+         Query: Pos1Ref_chr17:7578207-7578318/0_111
+        Target: @m170922_223647_42237_c101229972550000001823291512091717_s1_p0/77341/0_12227/0_12227
+         Model: a hybrid of global/local non-affine alignment
+     Raw score: -509
+        Map QV: 254
+  Query strand: 0
+ Target strand: 0
+   QueryRange: 2 -> 111 of 111
+  TargetRange: 1969 -> 2080 of 4004
+   2  TCGAAAAGTGTTT-CTGTCATCCAAATACTCC-ACACGCAAATTTCCTTC
+      ||||||||||||| |||||||||||||||||| |||||||||||| ||||
+1969  TCGAAAAGTGTTTCCTGTCATCCAAATACTCCAACACGCAAATTT-CTTC
+
+  50  CACTCGGATAAG-ATGCTGAGGAGGGGCCAGACCTAAGAGCAATCAGTGA
+      |||||*|||||| |||||||||||||||||||||||||||||||||||||
+2018  CACTCAGATAAGAATGCTGAGGAGGGGCCAGACCTAAGAGCAATCAGTGA
+
+  99  GGAATCAGAGGC
+      ||||||||||||
+2068  GGAATCAGAGGC
+
+    nMatch: 108
+ nMisMatch: 0
+      nIns: 1
+      nDel: 3
+      %sim: 96.4286
+     Score: -520
+         Query: Pos1Alt_chr17:7578207-7578318/0_111
+        Target: @m170922_223647_42237_c101229972550000001823291512091717_s1_p0/77341/0_12227/0_12227
+         Model: a hybrid of global/local non-affine alignment
+     Raw score: -520
+        Map QV: 254
+  Query strand: 0
+ Target strand: 0
+   QueryRange: 2 -> 111 of 111
+  TargetRange: 1969 -> 2080 of 4004
+   2  TCGAAAAGTGTTT-CTGTCATCCAAATACTCC-ACACGCAAATTTCCTTC
+      ||||||||||||| |||||||||||||||||| |||||||||||| ||||
+1969  TCGAAAAGTGTTTCCTGTCATCCAAATACTCCAACACGCAAATTT-CTTC
+
+  50  CACTCAGATAAG-ATGCTGAGGAGGGGCCAGACCTAAGAGCAATCAGTGA
+      |||||||||||| |||||||||||||||||||||||||||||||||||||
+2018  CACTCAGATAAGAATGCTGAGGAGGGGCCAGACCTAAGAGCAATCAGTGA
+
+  99  GGAATCAGAGGC
+      ||||||||||||
+2068  GGAATCAGAGGC
+
+    nMatch: 96
+ nMisMatch: 0
+      nIns: 1
+      nDel: 5
+      %sim: 94.1176
+     Score: -450
+         Query: Pos2Ref_chr17:7579256-7579367/0_111
+        Target: @m170922_223647_42237_c101229972550000001823291512091717_s1_p0/77341/0_12227/0_12227
+         Model: a hybrid of global/local non-affine alignment
+     Raw score: -450
+        Map QV: 254
+  Query strand: 0
+ Target strand: 0
+   QueryRange: 0 -> 97 of 111
+  TargetRange: 3018 -> 3119 of 4004
+   0  GGGATACGGCCAGGC-ATTGAAGTCTCATGGAAGCCAGCCCCT-CAGGGC
+      ||||||||||||||| ||||||||||||| ||||||||||||| ||||||
+3018  GGGATACGGCCAGGCAATTGAAGTCTCAT-GAAGCCAGCCCCTCCAGGGC
+
+  48  AACTGACCGT-GCAAGTCACAGACTTGGCTGTCCCAG--AATGCAAGAAG
+      |||||||||| ||||||||||||||||||||||||||  |||||||||||
+3067  AACTGACCGTGGCAAGTCACAGACTTGGCTGTCCCAGAAAATGCAAGAAG
+
+  95  CC
+      ||
+3117  CC
+
+    nMatch: 95
+ nMisMatch: 1
+      nIns: 1
+      nDel: 5
+      %sim: 93.1373
+     Score: -439
+         Query: Pos2Alt_chr17:7579256-7579367/0_111
+        Target: @m170922_223647_42237_c101229972550000001823291512091717_s1_p0/77341/0_12227/0_12227
+         Model: a hybrid of global/local non-affine alignment
+     Raw score: -439
+        Map QV: 254
+  Query strand: 0
+ Target strand: 0
+   QueryRange: 0 -> 97 of 111
+  TargetRange: 3018 -> 3119 of 4004
+   0  GGGATACGGCCAGGC-ATTGAAGTCTCATGGAAGCCAGCCCCT-CAGGGC
+      ||||||||||||||| ||||||||||||| ||||||||||||| ||||||
+3018  GGGATACGGCCAGGCAATTGAAGTCTCAT-GAAGCCAGCCCCTCCAGGGC
+
+  48  AACTGACTGT-GCAAGTCACAGACTTGGCTGTCCCAG--AATGCAAGAAG
+      |||||||*|| ||||||||||||||||||||||||||  |||||||||||
+3067  AACTGACCGTGGCAAGTCACAGACTTGGCTGTCCCAGAAAATGCAAGAAG
+
+  95  CC
+      ||
+3117  CC
+
+    nMatch: 103
+ nMisMatch: 2
+      nIns: 2
+      nDel: 1
+      %sim: 95.3704
+     Score: -488
+         Query: Pos1Ref_chr17:7578207-7578318/0_111
+        Target: @m170922_223647_42237_c101229972550000001823291512091717_s1_p0/78593/1611_4941/0_3330
+         Model: a hybrid of global/local non-affine alignment
+     Raw score: -488
+        Map QV: 254
+  Query strand: 0
+ Target strand: 1
+   QueryRange: 0 -> 107 of 111
+  TargetRange: 1948 -> 2054 of 3180
+   0  TGTCGAAAAGTGTTTCTGTCATCCAAATACTCCACACGCAAATTTCCTTC
+      ||||||||||||||||||||||||||||||||||||||||||||||||||
+1948  TGTCGAAAAGTGTTTCTGTCATCCAAATACTCCACACGCAAATTTCCTTC
+
+  50  CACTC-GGATAAGATGCTGAGGAGGGGCCAGACCTAAGAGCAATCAGTGA
+      ||||| |*|||||||*||||||| ||||||||||||||||| ||||||||
+1998  CACTCAGTATAAGATTCTGAGGA-GGGCCAGACCTAAGAGC-ATCAGTGA
+
+  99  GGAATCAG
+      ||||||||
+2046  GGAATCAG
+
+    nMatch: 104
+ nMisMatch: 1
+      nIns: 2
+      nDel: 1
+      %sim: 96.2963
+     Score: -499
+         Query: Pos1Alt_chr17:7578207-7578318/0_111
+        Target: @m170922_223647_42237_c101229972550000001823291512091717_s1_p0/78593/1611_4941/0_3330
+         Model: a hybrid of global/local non-affine alignment
+     Raw score: -499
+        Map QV: 254
+  Query strand: 0
+ Target strand: 1
+   QueryRange: 0 -> 107 of 111
+  TargetRange: 1948 -> 2054 of 3180
+   0  TGTCGAAAAGTGTTTCTGTCATCCAAATACTCCACACGCAAATTTCCTTC
+      ||||||||||||||||||||||||||||||||||||||||||||||||||
+1948  TGTCGAAAAGTGTTTCTGTCATCCAAATACTCCACACGCAAATTTCCTTC
+
+  50  CACTCAG-ATAAGATGCTGAGGAGGGGCCAGACCTAAGAGCAATCAGTGA
+      ||||||| |||||||*||||||| ||||||||||||||||| ||||||||
+1998  CACTCAGTATAAGATTCTGAGGA-GGGCCAGACCTAAGAGC-ATCAGTGA
+
+  99  GGAATCAG
+      ||||||||
+2046  GGAATCAG
+
+    nMatch: 96
+ nMisMatch: 0
+      nIns: 10
+      nDel: 2
+      %sim: 88.8889
+     Score: -420
+         Query: Pos2Ref_chr17:7579256-7579367/0_111
+        Target: @m170922_223647_42237_c101229972550000001823291512091717_s1_p0/78593/1611_4941/0_3330
+         Model: a hybrid of global/local non-affine alignment
+     Raw score: -420
+        Map QV: 254
+  Query strand: 0
+ Target strand: 1
+   QueryRange: 5 -> 111 of 111
+  TargetRange: 2962 -> 3060 of 3180
+   5  ACGGCCAGGCATTGAAGTCTCATGGAAGCCAGCCCCTCAGGGCAA-CTGA
+      |||| || |||||| |||||||||||||||||||||||||||||| ||||
+2962  ACGG-CA-GCATTG-AGTCTCATGGAAGCCAGCCCCTCAGGGCAACCTGA
+
+  54  CCGTGCAAGTCACAGACT-TGGCTGTCCCAGAATGCAAGAAGCCCAGACG
+      |||||||||||||||| | | |||||  ||||| |||||||| ||||| |
+3009  CCGTGCAAGTCACAGA-TAT-GCTGT--CAGAA-GCAAGAAG-CCAGA-G
+
+ 103  GAAACCGT
+      ||||||||
+3052  GAAACCGT
+
+    nMatch: 95
+ nMisMatch: 1
+      nIns: 10
+      nDel: 2
+      %sim: 87.963
+     Score: -409
+         Query: Pos2Alt_chr17:7579256-7579367/0_111
+        Target: @m170922_223647_42237_c101229972550000001823291512091717_s1_p0/78593/1611_4941/0_3330
+         Model: a hybrid of global/local non-affine alignment
+     Raw score: -409
+        Map QV: 254
+  Query strand: 0
+ Target strand: 1
+   QueryRange: 5 -> 111 of 111
+  TargetRange: 2962 -> 3060 of 3180
+   5  ACGGCCAGGCATTGAAGTCTCATGGAAGCCAGCCCCTCAGGGCAA-CTGA
+      |||| || |||||| |||||||||||||||||||||||||||||| ||||
+2962  ACGG-CA-GCATTG-AGTCTCATGGAAGCCAGCCCCTCAGGGCAACCTGA
+
+  54  CTGTGCAAGTCACAGACT-TGGCTGTCCCAGAATGCAAGAAGCCCAGACG
+      |*|||||||||||||| | | |||||  ||||| |||||||| ||||| |
+3009  CCGTGCAAGTCACAGA-TAT-GCTGT--CAGAA-GCAAGAAG-CCAGA-G
+
+ 103  GAAACCGT
+      ||||||||
+3052  GAAACCGT
+
+    nMatch: 100
+ nMisMatch: 3
+      nIns: 8
+      nDel: 4
+      %sim: 86.9565
+     Score: -422
+         Query: Pos1Ref_chr17:7578207-7578318/0_111
+        Target: @m170922_223647_42237_c101229972550000001823291512091717_s1_p0/108646/4930_10232/0_5302
+         Model: a hybrid of global/local non-affine alignment
+     Raw score: -422
+        Map QV: 254
+  Query strand: 0
+ Target strand: 1
+   QueryRange: 0 -> 111 of 111
+  TargetRange: 1876 -> 1983 of 5077
+   0  TGTCGAAAAGTGTTTCTGTCATCCAAA-TACTCCACACGCAAATTTCCTT
+      ||||| ||||||||| ||| ||||||| |||*|||||||| ||||||||*
+1876  TGTCG-AAAGTGTTT-TGT-ATCCAAAGTACCCCACACGC-AATTTCCTG
+
+  49  CCACTCGGATAAGATG-CTGAGGAGGGG-CCAGACCTAAGAGCAATCAGT
+      |||||||||||||||| || | |||||| ||||||*|||| |||||||||
+1922  CCACTCGGATAAGATGCCT-A-GAGGGGCCCAGACATAAG-GCAATCAGT
+
+  97  GAGGAATC-AGAGGC
+      |||| ||| ||||||
+1969  GAGG-ATCAAGAGGC
+
+    nMatch: 99
+ nMisMatch: 4
+      nIns: 8
+      nDel: 4
+      %sim: 86.087
+     Score: -411
+         Query: Pos1Alt_chr17:7578207-7578318/0_111
+        Target: @m170922_223647_42237_c101229972550000001823291512091717_s1_p0/108646/4930_10232/0_5302
+         Model: a hybrid of global/local non-affine alignment
+     Raw score: -411
+        Map QV: 254
+  Query strand: 0
+ Target strand: 1
+   QueryRange: 0 -> 111 of 111
+  TargetRange: 1876 -> 1983 of 5077
+   0  TGTCGAAAAGTGTTTCTGTCATCCAAA-TACTCCACACGCAAATTTCCTT
+      ||||| ||||||||| ||| ||||||| |||*|||||||| ||||||||*
+1876  TGTCG-AAAGTGTTT-TGT-ATCCAAAGTACCCCACACGC-AATTTCCTG
+
+  49  CCACTCAGATAAGATG-CTGAGGAGGGG-CCAGACCTAAGAGCAATCAGT
+      ||||||*||||||||| || | |||||| ||||||*|||| |||||||||
+1922  CCACTCGGATAAGATGCCT-A-GAGGGGCCCAGACATAAG-GCAATCAGT
+
+  97  GAGGAATC-AGAGGC
+      |||| ||| ||||||
+1969  GAGG-ATCAAGAGGC
+
+    nMatch: 102
+ nMisMatch: 3
+      nIns: 2
+      nDel: 3
+      %sim: 92.7273
+     Score: -467
+         Query: Pos2Ref_chr17:7579256-7579367/0_111
+        Target: @m170922_223647_42237_c101229972550000001823291512091717_s1_p0/108646/4930_10232/0_5302
+         Model: a hybrid of global/local non-affine alignment
+     Raw score: -467
+        Map QV: 254
+  Query strand: 0
+ Target strand: 1
+   QueryRange: 2 -> 109 of 111
+  TargetRange: 2963 -> 3071 of 5077
+   2  GATACGGCCAGGCATTGAAGTCTCATGGAAGCCAGCCCCTCAGGGCAACT
+      ||||||||||*||||||||||||||||||||||||||||||| |||||||
+2963  GATACGGCCACGCATTGAAGTCTCATGGAAGCCAGCCCCTCA-GGCAACT
+
+  52  GACCGTGCAAGTCACAGACTTGGCTGTCCCAGA-ATGCAAG-AAGCCCAG
+      |||*||||||||||||||||||*| |||||||| ||||||| ||||||||
+3012  GACTGTGCAAGTCACAGACTTGTC-GTCCCAGACATGCAAGAAAGCCCAG
+
+ 100  ACGG-AAACC
+      |||| |||||
+3061  ACGGAAAACC
+
+    nMatch: 103
+ nMisMatch: 2
+      nIns: 2
+      nDel: 3
+      %sim: 93.6364
+     Score: -478
+         Query: Pos2Alt_chr17:7579256-7579367/0_111
+        Target: @m170922_223647_42237_c101229972550000001823291512091717_s1_p0/108646/4930_10232/0_5302
+         Model: a hybrid of global/local non-affine alignment
+     Raw score: -478
+        Map QV: 254
+  Query strand: 0
+ Target strand: 1
+   QueryRange: 2 -> 109 of 111
+  TargetRange: 2963 -> 3071 of 5077
+   2  GATACGGCCAGGCATTGAAGTCTCATGGAAGCCAGCCCCTCAGGGCAACT
+      ||||||||||*||||||||||||||||||||||||||||||| |||||||
+2963  GATACGGCCACGCATTGAAGTCTCATGGAAGCCAGCCCCTCA-GGCAACT
+
+  52  GACTGTGCAAGTCACAGACTTGGCTGTCCCAGA-ATGCAAG-AAGCCCAG
+      ||||||||||||||||||||||*| |||||||| ||||||| ||||||||
+3012  GACTGTGCAAGTCACAGACTTGTC-GTCCCAGACATGCAAGAAAGCCCAG
+
+ 100  ACGG-AAACC
+      |||| |||||
+3061  ACGGAAAACC
+
