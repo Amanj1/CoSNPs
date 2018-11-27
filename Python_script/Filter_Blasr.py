@@ -38,7 +38,7 @@ def main():
 	currContent = []
 	f = open(sys.argv[1])
 	line = f.readline()
-	line = line.strip()
+	#line = line.strip()
 	tmpRead = line.split(' ')
 	FileName = sys.argv[2]
 	while line:
