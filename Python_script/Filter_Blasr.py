@@ -2,6 +2,7 @@ import sys
 # COMMAND: python Filter_Blasr.py 'BlasrResults'
 # INPUT: Pathway to text based files.
 # OUTPUT: New file containing filtered PacBio Reads based on nMatch score and ccomparing Ref and Alt score greedy algorithm
+# OUTPUT: Also adds if the result is a mutation for SNP in the first index.
 
 def WriteToFile(fileName,arrPacBio): 
 	#refSeq = refSeq+'\n'
