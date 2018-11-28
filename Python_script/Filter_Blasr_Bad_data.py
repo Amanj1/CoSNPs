@@ -35,11 +35,14 @@ def main():
 		line = f.readline()
 		currContent = line.split('\t')
 		#print(currContent)
-		if currContent == [''] and CheckMiniMatch(tmpRead)==1:
+		if line == '' and CheckMiniMatch(tmpRead)==1:
 			if tmpCounter == numOfPos-1:
 				tmpCounter = 0
 				tmpLine.append(prevline)
 				WriteToFile(FileName,tmpLine)
+			break
+		#checkMiniMatch not running empty value
+		if line == '':
 			break
 		if currContent[7] == tmpRead[7] and CheckMiniMatch(tmpRead)==1:
 			tmpCounter = tmpCounter + 1
