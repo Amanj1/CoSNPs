@@ -41,7 +41,7 @@ def main():
 				tmpLine.append(prevline)
 				WriteToFile(FileName,tmpLine)
 			break
-		#checkMiniMatch not running empty value
+		#
 		if line == '':
 			break
 		if currContent[7] == tmpRead[7] and CheckMiniMatch(tmpRead)==1:
