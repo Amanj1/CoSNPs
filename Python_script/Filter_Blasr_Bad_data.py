@@ -3,7 +3,7 @@ import sys
 # INPUT: Pathway to text based files.
 # OUTPUT: Saves only data that contains all SNP positions and avoids bad data.
 
-def WriteToFile(fileName,arrPacBio): 
+def WriteToFile(fileName,arrPacBio):
 	f=open(fileName, "a+")
 	for x in arrPacBio:
 		f.write(x)
@@ -12,10 +12,10 @@ def WriteToFile(fileName,arrPacBio):
 
 def CheckMiniMatch(PacBioRead):
 	check = 1
-	x = PacBioRead[2]
-	y = PacBioRead[13]
+	x = float(PacBioRead[2])
+	y = float(PacBioRead[13])
 	val = y/x
-	if val < 0.8:
+	if float(val) < 0.8:
 		check = 0
 	return check
 
@@ -27,17 +27,15 @@ def main():
 	tmpCounter = 0
 	f = open(sys.argv[2])
 	line = f.readline()
-	line = line.strip()
 	prevline = line
-	tmpRead = line.split(' ')
+	tmpRead = line.split('\t')
 	FileName = sys.argv[3]
-	numOfPos = sys.argv[1]
+	numOfPos = int(sys.argv[1])
 	while line:
-		line = line.strip()
 		line = f.readline()
-		currContent = line.split(' ')
-		
-		if currContent == [' '] and CheckMiniMatch(tmpRead)==1:
+		currContent = line.split('\t')
+		#print(currContent)
+		if currContent == [''] and CheckMiniMatch(tmpRead)==1:
 			if tmpCounter == numOfPos-1:
 				tmpCounter = 0
 				tmpLine.append(prevline)
@@ -48,14 +46,14 @@ def main():
 			tmpLine.append(prevline)
 			tmpRead = currContent
 			prevline = line
-		elif currContent[6] != tmpRead[6] and CheckMiniMatch(tmpRead)==1:
+		elif currContent[7] != tmpRead[7] and CheckMiniMatch(tmpRead)==1:
 				if tmpCounter == numOfPos-1:
 					tmpCounter = 0
 					tmpLine.append(prevline)
 					WriteToFile(FileName,tmpLine)
 					tmpLine = []
-			tmpRead = currContent
-			prevline = line
+				tmpRead = currContent
+				prevline = line
 		else:
 			tmpRead = currContent
 			prevline = line
@@ -63,7 +61,7 @@ def main():
 			tmpLine = []
 			if currContent == ['']: #If next line is empty store current
 				break
-	f.close()	
+	f.close()
 
 	return
 main()
