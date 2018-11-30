@@ -3,13 +3,13 @@ import sys
 # INPUT: Pathway to text based files.
 # OUTPUT: New file containing filtered PacBio Reads based on nMatch score and ccomparing Ref and Alt score greedy algorithm
 
-def WriteToFile(fileName,arrPacBio): 
+def WriteToFile(fileName,arrPacBio):
 	#refSeq = refSeq+'\n'
 	Read = arrPacBio[0]
 	f=open(fileName, "a+")
-	leng= len(arrPacBio)-1
+	leng= len(arrPacBio)-1 #just len(arrPacBio)
 	for i in range(leng):
-		Read = Read + '\t' + arrPacBio[i+1]
+		Read = Read + '\t' + arrPacBio[i+1] # index is still starting from 0
 	f.write(Read)
 	f.close()
 	return None
