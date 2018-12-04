@@ -55,7 +55,10 @@ def main():
 			if int(currContent[12]) > int(tmpRead[12]):
 				tmpRead = currContent
 		elif CheckAlt(tmpRead[0],currContent[0]) == 1 and currContent[6] == tmpRead[6]:
-			if int(currContent[12]) > int(tmpRead[12]):
+			if int(currContent[12]) >= int(tmpRead[12]):
+				if int(currContent[12]) = int(tmpRead[12]):
+					finalTmp = CheckMutation(tmpRead)
+					WriteToFile(FileName,finalTmp)
 				tmpRead = currContent
 		elif CheckAlt(tmpRead[0],currContent[0]) == 0 and currContent[6] == tmpRead[6]:
 			finalTmp = CheckMutation(tmpRead)
@@ -64,9 +67,7 @@ def main():
 		elif currContent[6] != tmpRead[6]:
 			finalTmp = CheckMutation(tmpRead)
 			WriteToFile(FileName,finalTmp)
-			tmpRead = currContent
-			
+			tmpRead = currContent		
 	f.close()	
-
 	return
 main()
