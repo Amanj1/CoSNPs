@@ -1,5 +1,5 @@
 import sys
-# COMMAND: python Filter_Blasr.py 'BlasrResults' 'OutputFileNameAndPAthWay'
+# COMMAND: python Filter_Blasr.py 'BlasrResults' 'OutputFileNameAndPAthWay' 'FileNameControl'
 # INPUT: Pathway to text based files.
 # OUTPUT: New file containing filtered PacBio Reads based on nMatch score and ccomparing Ref and Alt score greedy algorithm
 
@@ -41,6 +41,7 @@ def main():
 	#line = line.strip()
 	tmpRead = line.split(' ')
 	FileName = sys.argv[2]
+	FileNameControl = sys.argv[3] #3rd file to control the similarity score for ref and alt sequences
 	while line:
 		line = line.strip()
 		line = f.readline()
@@ -49,24 +50,26 @@ def main():
 		if currContent == ['']: #If next line is empty store current
 			finalTmp = CheckMutation(tmpRead)
 			WriteToFile(FileName,finalTmp)
+			WriteToFile(FileNameControl,tmpRead) ###
 			break
 		if currContent[0] == tmpRead[0] and currContent[6] == tmpRead[6]:
 			#print(tmpRead[12])
-			if int(currContent[12]) > int(tmpRead[12]):
+			if int(currContent[12]) >= int(tmpRead[12]):
 				tmpRead = currContent
 		elif CheckAlt(tmpRead[0],currContent[0]) == 1 and currContent[6] == tmpRead[6]:
-			if int(currContent[12]) > int(tmpRead[12]):
+			if int(currContent[12]) >= int(tmpRead[12]):
+				WriteToFile(FileNameControl,tmpRead)
 				tmpRead = currContent
 		elif CheckAlt(tmpRead[0],currContent[0]) == 0 and currContent[6] == tmpRead[6]:
 			finalTmp = CheckMutation(tmpRead)
 			WriteToFile(FileName,finalTmp)
+			WriteToFile(FileNameControl,tmpRead) ###
 			tmpRead = currContent
 		elif currContent[6] != tmpRead[6]:
 			finalTmp = CheckMutation(tmpRead)
 			WriteToFile(FileName,finalTmp)
-			tmpRead = currContent
-			
+			WriteToFile(FileNameControl,tmpRead) ###
+			tmpRead = currContent		
 	f.close()	
-
 	return
 main()
