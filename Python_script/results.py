@@ -44,8 +44,8 @@ def main():
 			tmpLine.append(prevline)
 			stringName = CheckMutation(tmpLine)
 			WriteToFile(stringName)
-			print(tmpLine)
-			print('\n')
+			#print(tmpLine)
+			#print('\n')
 			tmpLine = []
 			tmpRead = currContent
 			prevline = line
@@ -58,8 +58,8 @@ def main():
 			tmpLine.append(prevline)
 			stringName = CheckMutation(tmpLine)
 			WriteToFile(stringName)
-			print(tmpLine)
-			print('\n')
+			#print(tmpLine)
+			#print('\n')
 			tmpLine = []
 			tmpRead = currContent
 			prevline = line
