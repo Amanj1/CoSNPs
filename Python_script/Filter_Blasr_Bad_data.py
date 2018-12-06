@@ -1,5 +1,5 @@
 import sys
-# COMMAND: python Filter_Blasr.py 'NumberOfSNPs' 'BlasrResults' 'OutputFileNameAndPAthWay'
+# COMMAND: python Filter_Blasr.py 'NumberOfSNPs' 'BlasrResults' 'OutputFileNameAndPAthWay' 'InputForFilter'
 # INPUT: Pathway to text based files.
 # OUTPUT: Saves only data that contains all SNP positions and avoids bad data.
 
@@ -15,7 +15,9 @@ def CheckMiniMatch(PacBioRead):
 	x = float(PacBioRead[2])
 	y = float(PacBioRead[13])
 	val = y/x
-	if float(val) < 0.8:
+	#set as user input
+	if float(val) <  float(sys.argv[4]):
+		#print(float(sys.argv[4]))
 		check = 0
 	return check
 

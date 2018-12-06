@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: ErrorHandler should check if the input file with the pos and mutations are correct
 echo "Type the half-window size (Intenger) that you want, followed by [ENTER]:"
 read WindowSize
 # TODO: input as file, handle more than 2 position
@@ -49,6 +50,7 @@ rm query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
 rm query_Uptmp*
 cat tmpSomething.fasta > query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
 rm tmpSomething.fasta
+#TODO: move in the end
 mv query_Up${WindowSize}bp_Down${WindowSize}bp.fasta ../Query/
 ls ../Query/
 #send the alt/ref sequences for BLASR alignment
@@ -62,7 +64,7 @@ rm -f result.txt
 BlasrOutput='../output/Dec6_minMatch12_blasrResult_halfWin'${WindowSize}'.txt'
 python ../Python_script/Filter_Blasr.py $BlasrOutput tmpOut1stFilter.txt
 # TODO: first input numPos, from read number of lines
-python ../Python_script/Filter_Blasr_Bad_data.py $numPos tmpOut1stFilter.txt tmpOut2ndFilter.txt
+python ../Python_script/Filter_Blasr_Bad_data.py $numPos tmpOut1stFilter.txt tmpOut2ndFilter.txt 0.8
 #handle the case where we have nMatch equal to Alt and Ref
 #Result ouput should be: mutation boolean nMatch mutatio bolean pos 2 minMatch
 # read 0 nMatch 1 nMatch

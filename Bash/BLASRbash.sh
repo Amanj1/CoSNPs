@@ -14,7 +14,7 @@ query=$1
 WindowSize=$2
 #remove the output file it already exist
 #rm -f ../Output/blasrResult_halfWin${WindowSize}.txt
-rm -f ../0utput/Dec6_minMatch12_blasrResult_halfWin${WindowSize}.txt
+rm -f ../output/Dec6_minMatch12_blasrResult_halfWin${WindowSize}.txt
 #read header of the input PacBioRead
 samtools view -H $inBAM > Header.sam
 for (( c=$z; c<=$y; c++ )) #starting with 0? test
