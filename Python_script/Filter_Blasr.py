@@ -7,9 +7,9 @@ def WriteToFile(fileName,arrPacBio):
 	#refSeq = refSeq+'\n'
 	Read = arrPacBio[0]
 	f=open(fileName, "a+")
-	leng= len(arrPacBio)-1 #just len(arrPacBio)
+	leng= len(arrPacBio)-1
 	for i in range(leng):
-		Read = Read + '\t' + arrPacBio[i+1] # index is still starting from 0
+		Read = Read + '\t' + arrPacBio[i+1]
 	f.write(Read)
 	f.close()
 	return None
@@ -45,7 +45,7 @@ def main():
 		line = line.strip()
 		line = f.readline()
 		currContent = line.split(' ')
-		
+
 		if currContent == ['']: #If next line is empty store current
 			finalTmp = CheckMutation(tmpRead)
 			WriteToFile(FileName,finalTmp)
@@ -56,7 +56,7 @@ def main():
 				tmpRead = currContent
 		elif CheckAlt(tmpRead[0],currContent[0]) == 1 and currContent[6] == tmpRead[6]:
 			if int(currContent[12]) >= int(tmpRead[12]):
-				if int(currContent[12]) = int(tmpRead[12]):
+				if int(currContent[12]) == int(tmpRead[12]):
 					finalTmp = CheckMutation(tmpRead)
 					WriteToFile(FileName,finalTmp)
 				tmpRead = currContent
@@ -67,7 +67,7 @@ def main():
 		elif currContent[6] != tmpRead[6]:
 			finalTmp = CheckMutation(tmpRead)
 			WriteToFile(FileName,finalTmp)
-			tmpRead = currContent		
-	f.close()	
+			tmpRead = currContent
+	f.close()
 	return
 main()
