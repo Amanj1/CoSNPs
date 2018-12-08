@@ -2,8 +2,6 @@ import sys
 # COMMAND: python results.py 'secondFilteredBlasrFile' 'OutputFile'
 # INPUT: Pathway to text based files.
 # OUTPUT: Table representation
-Alt = 0
-Ref = 0
 
 def WriteToFile(PacBio):
 	f=open(sys.argv[2], "a+")
@@ -19,10 +17,6 @@ def CheckMutation(PacBioRead):
 		name = y[7]
 		tmpMutation.append(y[0])
 		tmpMutation.append(y[13])
-		#if int(y[0]) == 1:
-			#Alt = Alt + 1
-		#else:
-			#Ref = Ref + 1
 	for n in tmpMutation:
 		name = name + '\t' +n
 	name = name + '\n'
@@ -65,7 +59,5 @@ def main():
 			tmpRead = currContent
 			prevline = line
 	f.close()
-	#print(Alt)
-	#print(Ref)
 	return
 main()
