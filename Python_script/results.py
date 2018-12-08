@@ -18,6 +18,7 @@ def CheckMutation(PacBioRead):
 		y = x.split('\t')
 		name = y[7]
 		tmpMutation.append(y[0])
+		tmpMutation.append(y[13])
 		#if int(y[0]) == 1:
 			#Alt = Alt + 1
 		#else:
