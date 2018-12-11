@@ -1,14 +1,17 @@
 #! /bin/bash
 echo "Start!"
-chrSeq='../hg19/hg19_chr17_changeName.fasta'
 ##############TODO: input by user####################
+chrSeq='../hg19/hg19_chr17_changeName.fasta'
 PacBioINPUT='../PacBioRead/chr17.bam'
+#Check min WindowSize
 WindowSize=35
 #sapce delimited file
 input="../Testing/inputPOS_test.txt"
-FilterThrehold='0.8'
+
+FilterThrehold='0.6'
 #####################################################
 rm -f PacBio_Selected.bam
+rm -f result.txt
 cp $PacBioINPUT PacBio_Selected.bam
 rm -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
 numPos=0
@@ -49,13 +52,13 @@ echo "Into filtering part:"
 rm -f result.txt
 BlasrOutput='../output/Dec6_minMatch12_blasrResult_halfWin'${WindowSize}'.txt'
 python ../Python_script/Filter_Blasr.py $BlasrOutput tmpOut1stFilter.txt
-# TODO: first input numPos, from read number of lines
-#make the fourth parameter user input
 python ../Python_script/Filter_Blasr_Bad_data.py $numPos tmpOut1stFilter.txt tmpOut2ndFilter.txt $FilterThrehold
 #handle the case where we have nMatch equal to Alt and Ref
 #Result ouput should be: mutation boolean nMatch mutatio bolean pos 2 minMatch
 # read 0 nMatch 1 nMatch
-python ../Python_script/results.py tmpOut2ndFilter.txt result.txt
+python ../Python_script/Filter_Blasr_3rd.py tmpOut2ndFilter.txt tmpOut3ndFilter.txt
+python ../Python_script/results.py tmpOut3ndFilter.txt tmpOutresult.txt
+python ../Python_script/filter_result.py $numPos tmpOutresult.txt result.txt
 rm tmpOut*
-#remove the tmp file, use mv if needed to save in other directory
+#remove the tmp file, use mv if needed to save
 rm Header.sam
