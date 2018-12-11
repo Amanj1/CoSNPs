@@ -10,18 +10,21 @@ def WriteToFile(fileName,arrPacBio):
 	f.close()
 	return None
 
-def CheckMiniMatch(PacBioRead):
+def CheckMiniMatch(PacBioRead, score):
 	check = 1
 	x = float(PacBioRead[2])
 	y = float(PacBioRead[13])
+	#print (x)
+	#print (y)
 	val = y/x
 	#set as user input
-	if float(val) <  float(sys.argv[4]):
+	if float(val) < score:
 		#print(float(sys.argv[4]))
 		check = 0
 	return check
 
 def main():
+	score = float(sys.argv[4])
 	tmpRead = []
 	finalTmp = []
 	currContent = []
@@ -37,28 +40,23 @@ def main():
 		line = f.readline()
 		currContent = line.split('\t')
 		#print(currContent)
-		if line == '' and CheckMiniMatch(tmpRead)==1:
-			if tmpCounter == numOfPos-1:
-				tmpCounter = 0
-				tmpLine.append(prevline)
-				WriteToFile(FileName,tmpLine)
+		if line == '' and CheckMiniMatch(tmpRead, score)==1:
+			tmpLine.append(prevline)
+			WriteToFile(FileName,tmpLine)
 			break
-		#
-		if line == '':
+		elif line == '':
+			print ('empty line for second filter')
 			break
-		if currContent[7] == tmpRead[7] and CheckMiniMatch(tmpRead)==1:
-			tmpCounter = tmpCounter + 1
+		elif currContent[7] == tmpRead[7] and CheckMiniMatch(tmpRead, score)==1:
 			tmpLine.append(prevline)
 			tmpRead = currContent
 			prevline = line
-		elif currContent[7] != tmpRead[7] and CheckMiniMatch(tmpRead)==1:
-				if tmpCounter == numOfPos-1:
-					tmpCounter = 0
-					tmpLine.append(prevline)
-					WriteToFile(FileName,tmpLine)
-					tmpLine = []
-				tmpRead = currContent
-				prevline = line
+		elif currContent[7] != tmpRead[7] and CheckMiniMatch(tmpRead, score)==1:
+			tmpLine.append(prevline)
+			WriteToFile(FileName,tmpLine)
+			tmpLine = []
+			tmpRead = currContent
+			prevline = line
 		else:
 			tmpRead = currContent
 			prevline = line
