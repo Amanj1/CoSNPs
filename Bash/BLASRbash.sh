@@ -8,7 +8,7 @@ mkdir -p ../output
 inBAM=$3
 x="$(samtools view $inBAM|wc -l)"
 y=$x
-z=1
+z=70
 #auto add query in command line
 query=$1
 WindowSize=$2
@@ -19,7 +19,7 @@ rm -f ../output/Dec6_minMatch12_blasrResult_halfWin${WindowSize}.txt
 samtools view -H $inBAM > Header.sam
 for (( c=$z; c<=$y; c++ )) #starting with 0? test
 do
-   echo $c
+   echo "Realigning read: $c"
    cat Header.sam > tmp.sam
    samtools view $inBAM | awk '{if((NR=='$c')) print $0}' >> tmp.sam
    #samtools view -h -b tmp.sam > tmp.bam
