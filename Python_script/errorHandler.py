@@ -64,5 +64,6 @@ def main():
 			check = 1
 			break		
 	f.close()
+	print(check)
 	return
 main()
