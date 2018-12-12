@@ -5,11 +5,23 @@ echo "Start!"
 chrSeq='../hg19/hg19_chr17_changeName.fasta'
 PacBioINPUT='../PacBioRead/chr17.bam'
 #Check min WindowSize
-WindowSize=35
+WindowSize=50
 #sapce delimited file
 #TODO 2/5/10/50/100
 input="../Testing/inputPOS_test.txt"
-FilterThrehold='0.6'
+#input="../Testing/InputPos.txt"
+FilterThrehold='0.9'
+python ../Python_script/errorHandler.py $FilterThrehold $WindowSize $input > tmp_errorMsg.txt
+checkpoint=`tail -n 1 tmp_errorMsg.txt`
+if [ $checkpoint = '0' ]
+then
+  echo 'Input parameters checkpoint passed!'
+  rm tmp_errorMsg.txt
+else
+  cat tmp_errorMsg.txt
+  rm tmp*
+  exit 128
+fi
 #####################################################
 rm -f PacBio_Selected.bam
 rm -f result.txt
@@ -44,6 +56,7 @@ do
 
 done < $input
 echo "Number of selected long reads:"
+#TODO: if selected PacBio file is empty/doesn't exist, terminate the software
 samtools view PacBio_Selected.bam | wc -l
 mv -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta ../Query/
 echo "Start realignments!"
