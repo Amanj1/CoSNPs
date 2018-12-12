@@ -19,9 +19,12 @@ def main():
 	f = open(inputPos)
 	Refline = f.readline()
 	line = Refline
-	ReftmpRead = Refline.split(' ')
+	if "\t" not in line: 
+		ReftmpRead = Refline.split(' ')
+	else:
+		ReftmpRead = Refline.split('\t')
 	Refpos = ReftmpRead[0].split(':')
-	print (ReftmpRead)
+	#print (ReftmpRead)
 	Refnec = ReftmpRead[1].split()
 	for n in necSet:
 		if Refnec[0] == n:
@@ -42,12 +45,15 @@ def main():
 	#print(line)
 	while line and check == 0:
 		line = f.readline()
-		tmpRead = line.split(' ')
+		if "\t" not in line: 
+			tmpRead = line.split(' ')
+		else:
+			tmpRead = line.split('\t')
 		if line == '':
 			break
 		pos = tmpRead[0].split(':')
 		nec = tmpRead[1].split()
-		print(nec)
+		#print(nec)
 		check = 1
 		for n in necSet:
 			if nec[0] == n:
