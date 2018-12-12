@@ -2,3 +2,5 @@
 .*
 # Ignore ref genome folder
 hg19/
+/output
+/PacBioRead
