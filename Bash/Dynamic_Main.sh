@@ -1,18 +1,21 @@
 #! /bin/bash
 echo "Start!"
 ##############TODO: input by user####################
+#TODO: error handler??#
 chrSeq='../hg19/hg19_chr17_changeName.fasta'
 PacBioINPUT='../PacBioRead/chr17.bam'
 #Check min WindowSize
 WindowSize=35
 #sapce delimited file
+#TODO 2/5/10/50/100
 input="../Testing/inputPOS_test.txt"
-
 FilterThrehold='0.6'
 #####################################################
 rm -f PacBio_Selected.bam
 rm -f result.txt
 cp $PacBioINPUT PacBio_Selected.bam
+echo "Number of long reads input:"
+samtools view PacBio_Selected.bam | wc -l
 rm -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
 numPos=0
 #echo "Number of reads in input bam"
@@ -27,7 +30,6 @@ do
   altNec=`echo $var | awk -F" " '{print $2}'`
   #Select PacBio input covering the current position
   sh SelectPacBio.sh $pos $WindowSize $numPosStr
-  #samtools view PacBio_Selected.bam | wc -l
   #Generate Alt Ref seq for alignment with WindowSize
   python ../Python_script/scriptWindowRef.py $pos $WindowSize $numPosStr
   bedtools getfasta -fi $chrSeq -bed tmpPosRef_$numPosStr.bed -fo tmpFasta.fasta
@@ -41,7 +43,10 @@ do
   rm tmpSomething.fasta
 
 done < $input
+echo "Number of selected long reads:"
+samtools view PacBio_Selected.bam | wc -l
 mv -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta ../Query/
+echo "Start realignments!"
 #send the alt/ref sequences for BLASR alignment
 sh BLASRbash.sh ../Query/query_Up${WindowSize}bp_Down${WindowSize}bp.fasta $WindowSize PacBio_Selected.bam
 
@@ -59,6 +64,8 @@ python ../Python_script/Filter_Blasr_Bad_data.py $numPos tmpOut1stFilter.txt tmp
 python ../Python_script/Filter_Blasr_3rd.py tmpOut2ndFilter.txt tmpOut3ndFilter.txt
 python ../Python_script/results.py tmpOut3ndFilter.txt tmpOutresult.txt
 python ../Python_script/filter_result.py $numPos tmpOutresult.txt result.txt
+echo "Number of reads containing all Pos and pass the numMatch threshold:"
+wc -l result.txt
 rm tmpOut*
 #remove the tmp file, use mv if needed to save
 rm Header.sam
