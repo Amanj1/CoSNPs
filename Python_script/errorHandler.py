@@ -21,6 +21,7 @@ def main():
 	line = Refline
 	ReftmpRead = Refline.split(' ')
 	Refpos = ReftmpRead[0].split(':')
+	print (ReftmpRead)
 	Refnec = ReftmpRead[1].split()
 	for n in necSet:
 		if Refnec[0] == n:
