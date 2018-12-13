@@ -45,7 +45,7 @@ def main():
 			WriteToFile(FileName,tmpLine)
 			break
 		elif line == '':
-			print ('empty line for second filter')
+			#print ('empty line for second filter')
 			break
 		elif currContent[7] == tmpRead[7] and CheckMiniMatch(tmpRead, score)==1:
 			tmpLine.append(prevline)

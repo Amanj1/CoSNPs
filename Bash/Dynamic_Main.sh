@@ -1,16 +1,102 @@
+
+usage="$(basename "$0") [-h] -- Calls the this help page.
+
+$(basename "$0") [-r] 'Reads' 'Input positions' 'Referance genome' 'Window size' 'Filter Threshold' -- Runs the script.
+
+$(basename "$0") 'Reads' 'Input positions' 'Referance genome' 'Window size' 'Filter threshold' -- Runs the script.
+
+Example run:
+$(basename "$0") ./Reads ./Input_positions ./Referance_genome 15 0.95
+
+Where arguments are:
+
+-Reads: It should contain the PacBio reads
+
+-Input positions: abosulute positons from only one chromosome and the alternative neculotide
+example;
+chr17:738000 T
+chr17:739000 G
+
+Chromosome name needs to be the same or the script will be aborted.
+The absolute position seperated by ':' should be larger than 0.
+The alternative neculotide could be seperated by space or tab and should only be a neclotide capital A,T,C and G.
+
+-Referance genome: This will be used to generate the referance and alternative sequences in the script.
+
+-Window size: Is half of the window size. The total length of the referance and alternative query would be windowSize*2+1.
+
+-Filter threshold: This value should be between 0 and 1, where 0 = 0% and 1 = 100%. It will remove reads that does not meet the threshold criteria.
+
+What arguments are location to files:
+-Reads
+-Input positons
+-Referance genome
+
+What arguments are intergers or floats:
+-Window size (integer) natural number
+Natural Numbers are 1,2,3,4,5,...
+
+-Filter threshold (float)
+a value between 0.0 and 1.0
+example: '0.95'
+
+What flags are:
+    -h  show this help text
+    -r  Run script
+    no flag: Run script"
+
+while getopts ':hs:' option; do
+  case "$option" in
+    h) echo "$usage"
+       exit
+       ;;
+    r)
+       ;;
+    :) printf "missing argument for -%s\n" "$OPTARG" >&2
+      echo "$usage" >&2
+      exit 1
+      ;;
+    \?) printf "illegal option: -%s\n" "$OPTARG" >&2
+      echo "$usage" >&2
+      exit 1
+      ;;
+  esac
+done
+shift $((OPTIND - 1))
+
 #! /bin/bash
-echo "Start!"
+echo 'Start!'
 ##############TODO: input by user####################
 #TODO: error handler??#
-chrSeq='../hg19/hg19_chr17_changeName.fasta'
-PacBioINPUT='../PacBioRead/chr17.bam'
+######################old hard coding input:
+#chrSeq='../hg19/hg19_chr17_changeName.fasta'
+#PacBioINPUT='../PacBioRead/chr17.bam'
 #Check min WindowSize
-WindowSize=50
+#WindowSize=50
 #sapce delimited file
 #TODO 2/5/10/50/100
-input="../Testing/input2POS_test.txt"
+#input="../Testing/input4POS_test.txt"
 #input="../Testing/InputPos.txt"
-FilterThrehold='0.9'
+#FilterThrehold='0.8'
+######################
+#####UserInput#####
+#e.g.: sh Dynamic_Main.sh ../PacBioRead/chr17.bam ../Testing/input2POS_test.txt ../hg19/hg19_chr17_changeName.fasta 50 0.8
+PacBioINPUT=$1
+input=$2
+chrSeq=$3
+#Check min WindowSize
+WindowSize=$4
+#sapce delimited file
+#TODO 2/5/10/50/100
+#input="../Testing/InputPos.txt"
+FilterThrehold=$5
+#error if no input argument
+if [ $# -eq 0 ]
+then
+ echo 'System abort: missing arguments in script'
+ exit 1
+fi
+###################
 python ../Python_script/errorHandler.py $FilterThrehold $WindowSize $input > tmp_errorMsg.txt
 checkpoint=`tail -n 1 tmp_errorMsg.txt`
 if [ $checkpoint = '0' ]
@@ -30,7 +116,6 @@ rm -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
 numPos=0
 #echo "Number of reads in input bam"
 #samtools view PacBio_Selected.bam | wc -l
-
 while IFS= read -r var
 do
   numPos=$((numPos+1))
@@ -86,7 +171,9 @@ wc -l resultT1_label.txt
 echo "Summary:"
 #summary final data:
 #TODO: save into file AND graphical design for the data
-cat resultT1_label.txt | sort | uniq -c
+cat resultT1_label.txt | sort | uniq -c > tmpOut_resultT2.txt
+awk -v OFS="\t" '$1=$1' tmpOut_resultT2.txt > resultT2.txt
+cat resultT2.txt
 rm tmpOut*
 #remove the tmp file, use mv if needed to save
 rm Header.sam
