@@ -1,6 +1,6 @@
 
 usage="$(basename "$0") [-h] -- Calls this help page.
-$(basename "$0") [-r] 'Reads' 'Input positions' 'Referance genome' 'Window size' 'Filter Threshold' -- Runs the script
+$(basename "$0") [-g] 'Reads' 'Input positions' 'Referance genome' 'Window size' 'Filter Threshold' -- Runs the script with addtional graphical ouput in PNG.
 $(basename "$0") 'Reads' 'Input positions' 'Referance genome' 'Window size' 'Filter threshold' -- Runs the script.
 Example run:
 $(basename "$0") ./Reads ./Input_positions ./Referance_genome 15 0.95
@@ -29,24 +29,47 @@ Where arguments are location to files:
 -Referance genome
 
 Where arguments are intergers or floats:
--Window size (integer) natural number
-Natural Numbers are 1,2,3,4,5,...
+-Half window size (positive integer) needs to be greater or equal to 5.
+The minium neclotide match is 8. A window size equal to 5 gives a total length of 11 (5*2+1).
 
 -Filter threshold (float)
-a value between 0.0 and 1.0
-example: '0.95'
+A value between 0.0 and 1.0. It removes bad data based on number of match incomparsion with total length from window size.
+Example: '0.95', which means that 'number of match' should equal the length of total window size by 95%.
 
 Where flags are:
     -h  show this help text
-    -r  Run script
-    no flag: Run script"
+    -g  Run script with addtional graphical output in PNG format
+    no flag: Run script
 
+Output:
+    -resultT1.txt It contains all the reads passing the threshold where 0 for reference, 1 for alternative, and * for unresolved neculotide.
+    example: Lets asume we have 2 positons then each row should contain:
+    'Reads'             'First position' 'nMatch for first position''Second position' 'nMatch for second positon'
+    'PacBio read name'  '0, 1 or *'      'number of match'          '0, 1 or *'       'numer of match'
+
+    You can compare 'number of match' to the total length of windowSize*2+1
+    If window size is equal to 10 the total length is 21 and if 'number of match' is equal to 15,
+    which means that 15 neclotides matched to the total of 21.
+
+    resultT1.txt can also be opened in excel.
+
+    -resultT2.txt It contains all possible combinations of 1 and 0 based on number of positions. Reads that contain unresolved postions are excluded.
+    This will also include a counter for number of occurances.
+    example: Lets asume we have 2 positons then each row should contain:
+    Total reads 10
+    'Counter' 'positon 1' 'postion 2'
+    5          0            1
+    3          1            0
+    2          1            1"
+
+checkG=0
 while getopts ':hs:' option; do
   case "$option" in
     h) echo "$usage"
        exit
        ;;
-    r)
+    g) checkG=1
+       #For addation graphical output in PNG
        ;;
     :) printf "missing argument for -%s\n" "$OPTARG" >&2
       echo "$usage" >&2

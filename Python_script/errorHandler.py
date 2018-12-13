@@ -39,8 +39,8 @@ def main():
 	if score > 1.0 or score < 0.0:
 		print("System aborted: similiarity threshold value not within the range of 0 to 1\n")
 		check = 1
-	if window < 1:
-		print("System aborted: window size below 1\n")
+	if window < 5:
+		print("System aborted: window size below 5\n")
 		check = 1
 	#print(nec[0])
 	#print(pos)
