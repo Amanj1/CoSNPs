@@ -8,7 +8,7 @@ PacBioINPUT='../PacBioRead/chr17.bam'
 WindowSize=50
 #sapce delimited file
 #TODO 2/5/10/50/100
-input="../Testing/inputPOS_test.txt"
+input="../Testing/input2POS_test.txt"
 #input="../Testing/InputPos.txt"
 FilterThrehold='0.9'
 python ../Python_script/errorHandler.py $FilterThrehold $WindowSize $input > tmp_errorMsg.txt
@@ -26,8 +26,6 @@ fi
 rm -f PacBio_Selected.bam
 rm -f result.txt
 cp $PacBioINPUT PacBio_Selected.bam
-echo "Number of long reads input:"
-samtools view PacBio_Selected.bam | wc -l
 rm -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
 numPos=0
 #echo "Number of reads in input bam"
@@ -55,9 +53,6 @@ do
   rm tmpSomething.fasta
 
 done < $input
-echo "Number of selected long reads:"
-#TODO: if selected PacBio file is empty/doesn't exist, terminate the software
-samtools view PacBio_Selected.bam | wc -l
 mv -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta ../Query/
 echo "Start realignments!"
 #send the alt/ref sequences for BLASR alignment
@@ -65,9 +60,9 @@ sh BLASRbash.sh ../Query/query_Up${WindowSize}bp_Down${WindowSize}bp.fasta $Wind
 
 #not working for /output/1-80_minMatch12_blasrResult_halfWin55.txt
 #../output/text_minMatch12_1-40blasrResult_halfWin55.txt
-echo "Into filtering part:"
+echo "Into filtering part"
 #TODO: add threhold input
-rm -f result.txt
+rm -f resultT1*
 BlasrOutput='../output/Dec6_minMatch12_blasrResult_halfWin'${WindowSize}'.txt'
 python ../Python_script/Filter_Blasr.py $BlasrOutput tmpOut1stFilter.txt
 python ../Python_script/Filter_Blasr_Bad_data.py $numPos tmpOut1stFilter.txt tmpOut2ndFilter.txt $FilterThrehold
@@ -76,9 +71,22 @@ python ../Python_script/Filter_Blasr_Bad_data.py $numPos tmpOut1stFilter.txt tmp
 # read 0 nMatch 1 nMatch
 python ../Python_script/Filter_Blasr_3rd.py tmpOut2ndFilter.txt tmpOut3ndFilter.txt
 python ../Python_script/results.py tmpOut3ndFilter.txt tmpOutresult.txt
-python ../Python_script/filter_result.py $numPos tmpOutresult.txt result.txt
+python ../Python_script/filter_result.py $numPos tmpOutresult.txt resultT1.txt
+python ../Python_script/Sumfilter_result_improved.py resultT1.txt resultT1_label.txt
+echo "Filtering finished"
+echo "Number of long reads input:"
+samtools view $PacBioINPUT | wc -l
+echo "Number of selected long reads:"
+#TODO: if selected PacBio file is empty/doesn't exist, terminate the software
+samtools view PacBio_Selected.bam | wc -l
 echo "Number of reads containing all Pos and pass the numMatch threshold:"
-wc -l result.txt
+wc -l resultT1.txt
+echo "Number of reads left for summarizing:"
+wc -l resultT1_label.txt
+echo "Summary:"
+#summary final data:
+#TODO: save into file AND graphical design for the data
+cat resultT1_label.txt | sort | uniq -c
 rm tmpOut*
 #remove the tmp file, use mv if needed to save
 rm Header.sam
