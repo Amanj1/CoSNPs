@@ -1,38 +1,34 @@
 
-usage="$(basename "$0") [-h] -- Calls the this help page.
-
-$(basename "$0") [-r] 'Reads' 'Input positions' 'Referance genome' 'Window size' 'Filter Threshold' -- Runs the script.
-
+usage="$(basename "$0") [-h] -- Calls this help page.
+$(basename "$0") [-r] 'Reads' 'Input positions' 'Referance genome' 'Window size' 'Filter Threshold' -- Runs the script
 $(basename "$0") 'Reads' 'Input positions' 'Referance genome' 'Window size' 'Filter threshold' -- Runs the script.
-
 Example run:
 $(basename "$0") ./Reads ./Input_positions ./Referance_genome 15 0.95
 
 Where arguments are:
-
 -Reads: It should contain the PacBio reads
-
 -Input positions: abosulute positons from only one chromosome and the alternative neculotide
 example;
 chr17:738000 T
 chr17:739000 G
+'header of reference genome':'absolute position' 'alternative neclotide'
+'Chromosomes names should have the same name as the reference genome'
 
 Chromosome name needs to be the same or the script will be aborted.
 The absolute position seperated by ':' should be larger than 0.
 The alternative neculotide could be seperated by space or tab and should only be a neclotide capital A,T,C and G.
 
--Referance genome: This will be used to generate the referance and alternative sequences in the script.
-
+-Reference genome: This will be used to generate the referance and alternative sequences in the script.
+Caution!:Header of reference reads should be the same as Input position!
 -Window size: Is half of the window size. The total length of the referance and alternative query would be windowSize*2+1.
-
 -Filter threshold: This value should be between 0 and 1, where 0 = 0% and 1 = 100%. It will remove reads that does not meet the threshold criteria.
 
-What arguments are location to files:
+Where arguments are location to files:
 -Reads
 -Input positons
 -Referance genome
 
-What arguments are intergers or floats:
+Where arguments are intergers or floats:
 -Window size (integer) natural number
 Natural Numbers are 1,2,3,4,5,...
 
@@ -40,7 +36,7 @@ Natural Numbers are 1,2,3,4,5,...
 a value between 0.0 and 1.0
 example: '0.95'
 
-What flags are:
+Where flags are:
     -h  show this help text
     -r  Run script
     no flag: Run script"
