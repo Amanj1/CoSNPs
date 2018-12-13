@@ -8,7 +8,7 @@ mkdir -p ../output
 inBAM=$3
 x="$(samtools view $inBAM|wc -l)"
 y=$x
-z=70
+z=1
 #auto add query in command line
 query=$1
 WindowSize=$2
@@ -30,7 +30,7 @@ do
    #convert fastQ to fasta
    cat tmp.fastq  | paste - - - - | awk -F '\t' '{print ">"$1 ; print $2;}' > tmp.fasta
    #TODO: finalize the parameters for realignments
-   blasr $query tmp.fasta --minMatch 12 --minSubreadLength 1 --minReadLength 1 --maxScore 400 -m 5 \
+   blasr $query tmp.fasta --minMatch 8 --minSubreadLength 1 --minReadLength 1 --maxScore 200 -m 5 \
     >> ../output/Dec6_minMatch12_blasrResult_halfWin${WindowSize}.txt
     #sleep 1
     rm -f tmp*
