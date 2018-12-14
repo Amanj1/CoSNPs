@@ -1,38 +1,20 @@
 import sys
+from tabulate import tabulate
+
 # COMMAND: python graph.py 'InputPositions' 'resultT2'
 # INPUT: Pathway to text based files.
-# OUTPUT: Removes all reads that have '*'
-
-def WriteToFile(fileName,PacBioRead):
-	f=open(fileName, "a+")
-	f.write(PacBioRead)
-	f.close()
-	return None
-
-def genNewString(arrPacBio):
-	strPacBio = ''
-	tmp = ''
-	for i in range(len(arrPacBio)):
-		if i != 0:
-			tmp = tmp+'\t'+arrPacBio[i]
-	arrTmp = tmp.split('\t')
-	for i in range(len(arrTmp)):
-		if arrTmp[i] == '1' or arrTmp[i] == '0' or arrTmp[i] == '1\n' or arrTmp[i] == '0\n':
-			if strPacBio == '':
-				strPacBio = strPacBio+arrTmp[i]
-			else:
-				strPacBio = strPacBio+'\t'+arrTmp[i]
-	strPacBio = strPacBio+'\n'
-	return strPacBio
+# OUTPUT: Table and bar chart
 
 def main():
 	f = open(sys.argv[1])
 	countArr = []
 	absPos = []
+	absPosStr = ''
 	freq = []
 	ID = []
 	comboArr = []
-	check = 1
+	comboArrStr = []
+	check = 0
 	numPos = 0
 	sumCount = 0
 	line = f.readline()
@@ -42,6 +24,11 @@ def main():
 		tmpRead = line.split('\t')
 	while line:
 		absPos.append(tmpRead[0])
+		if check != 1:
+			absPosStr = absPosStr + tmpRead[0]
+			check = 1
+		else:
+			absPosStr = absPosStr + '\t' + tmpRead[0]
 		line = f.readline()
 		if "\t" not in line:
 			tmpRead = line.split(' ')
@@ -58,14 +45,20 @@ def main():
 		tmpRead = line.split('\t')
 	while line:
 		countArr.append(tmpRead[0])
-		freq.append(int(tmpRead[0]))
+		freq.append(float(tmpRead[0]))
 		tmpRead = tmpRead[1:]
 		#tmpRead.pop(0)
 		if check != 0:
 			numPos = len(tmpRead)
 			check = 0
+		tmpStr = ''
 		for x in tmpRead:
 			comboArr.append(x)
+			if tmpStr == '':
+				tmpStr = tmpStr + x
+			else:
+				tmpStr = tmpStr + '\t' + x
+		comboArrStr.append(tmpStr)
 		line = f.readline()
 		if "\t" not in line:
 			tmpRead = line.split(' ')
@@ -79,15 +72,22 @@ def main():
 		sumCount = sumCount + freq[i]
 
 	for i in range(len(freq)):
-		freq[i] = freq[i] / sumCount
+		freq[i] = freq[i] / float(sumCount)
+	
 
-	print(countArr)
-	print(absPos)
-	print(freq)
-	print(ID)
-	print(comboArr)
-	print(check)
-	print(numPos)
-	print(sumCount)
+	t = PrettyTable(['ID', 'Count', 'Frequency',absPosStr,])
+	for i in range(len(comboArrStr)):
+		t.add_row([ID[i], countArr[i],freq[i],comboArrStr[i]])
+	print t
+	#print(countArr)
+	#print(absPos)
+	#print(absPosStr)
+	#print(freq)
+	#print(ID)
+	#print(comboArr)
+	#print(comboArrStr)
+	#print(check)
+	#print(numPos)
+	#print(sumCount)
 	return
 main()
