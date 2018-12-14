@@ -1,5 +1,5 @@
 import sys
-# COMMAND: python graph.py 'InputPositions' 'resultT2' 
+# COMMAND: python graph.py 'InputPositions' 'resultT2'
 # INPUT: Pathway to text based files.
 # OUTPUT: Removes all reads that have '*'
 
@@ -35,38 +35,52 @@ def main():
 	check = 1
 	numPos = 0
 	sumCount = 0
-	#FileName = sys.argv[2]
-	#check = 0
-	while line:
 	line = f.readline()
 	if "\t" not in line:
 		tmpRead = line.split(' ')
 	else:
 		tmpRead = line.split('\t')
-	absPos.append(tmpRead[0])
-	f.close()
-	
-	f = open(sys.argv[2])
 	while line:
-	line = f.readline()
-	tmpRead = line.split('\t')
-	countArr.append(tmpRead[0])
-	freq.append(int(tmpRead[0])
-	tmpRead = tmpRead[1:]
-	if check != 0:
-		numPos = len(tmpRead)
-		check = 0
-	for x in tmpRead:
-		comboArr.append(x)
+		absPos.append(tmpRead[0])
+		line = f.readline()
+		if "\t" not in line:
+			tmpRead = line.split(' ')
+		else:
+			tmpRead = line.split('\t')
+
 	f.close()
-	
-	for i in range(len(comboArr)):
+
+	f = open(sys.argv[2])
+	line = f.readline()
+	if "\t" not in line:
+		tmpRead = line.split(' ')
+	else:
+		tmpRead = line.split('\t')
+	while line:
+		countArr.append(tmpRead[0])
+		freq.append(int(tmpRead[0]))
+		tmpRead = tmpRead[1:]
+		#tmpRead.pop(0)
+		if check != 0:
+			numPos = len(tmpRead)
+			check = 0
+		for x in tmpRead:
+			comboArr.append(x)
+		line = f.readline()
+		if "\t" not in line:
+			tmpRead = line.split(' ')
+		else:
+			tmpRead = line.split('\t')
+
+	f.close()
+
+	for i in range(len(countArr)):
 		ID.append(i+1)
 		sumCount = sumCount + freq[i]
-				
+
 	for i in range(len(freq)):
 		freq[i] = freq[i] / sumCount
-	
+
 	print(countArr)
 	print(absPos)
 	print(freq)
