@@ -68,17 +68,8 @@ while getopts ':hs:' option; do
     h) echo "$usage"
        exit
        ;;
-    g) checkG=1
-       #For addation graphical output in PNG
+    s) checkG=$OPTARG
        ;;
-    :) printf "missing argument for -%s\n" "$OPTARG" >&2
-      echo "$usage" >&2
-      exit 1
-      ;;
-    \?) printf "illegal option: -%s\n" "$OPTARG" >&2
-      echo "$usage" >&2
-      exit 1
-      ;;
   esac
 done
 shift $((OPTIND - 1))
@@ -109,6 +100,10 @@ WindowSize=$4
 #TODO 2/5/10/50/100
 #input="../Testing/InputPos.txt"
 FilterThrehold=$5
+if [ -z $5 ]
+then
+  FilterThrehold='0.95'
+fi
 #error if no input argument
 if [ $# -eq 0 ]
 then
@@ -192,7 +187,16 @@ echo "Summary:"
 #TODO: save into file AND graphical design for the data
 cat resultT1_label.txt | sort | uniq -c > tmpOut_resultT2.txt
 awk -v OFS="\t" '$1=$1' tmpOut_resultT2.txt > resultT2.txt
-cat resultT2.txt
+if [ $checkG -eq 0 ]
+then
+  cat resultT2.txt
+fi
+
+if [ $checkG -eq 1 ]
+then
+  python ../Python_script/graph.py $input resultT2.txt
+fi
+
 rm tmpOut*
 #remove the tmp file, use mv if needed to save
 rm Header.sam
