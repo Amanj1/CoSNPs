@@ -1,4 +1,6 @@
 import sys
+import matplotlib.pyplot as plt
+import numpy as np
 from tabulate import tabulate
 
 # COMMAND: python graph.py 'InputPositions' 'resultT2'
@@ -28,7 +30,7 @@ def main():
 			absPosStr = absPosStr + tmpRead[0]
 			check = 1
 		else:
-			absPosStr = absPosStr + '\t' + tmpRead[0]
+			absPosStr = absPosStr + ',' + tmpRead[0]
 		line = f.readline()
 		if "\t" not in line:
 			tmpRead = line.split(' ')
@@ -53,11 +55,12 @@ def main():
 			check = 0
 		tmpStr = ''
 		for x in tmpRead:
+			x = x.replace('\n','')
 			comboArr.append(x)
 			if tmpStr == '':
 				tmpStr = tmpStr + x
 			else:
-				tmpStr = tmpStr + '\t' + x
+				tmpStr = tmpStr + '\t' + '\t' + x
 		comboArrStr.append(tmpStr)
 		line = f.readline()
 		if "\t" not in line:
@@ -73,12 +76,31 @@ def main():
 
 	for i in range(len(freq)):
 		freq[i] = freq[i] / float(sumCount)
-	
 
-	t = PrettyTable(['ID', 'Count', 'Frequency',absPosStr,])
+	header = ['ID', 'Count', 'Frequency', absPosStr]
+	t = []
 	for i in range(len(comboArrStr)):
-		t.add_row([ID[i], countArr[i],freq[i],comboArrStr[i]])
-	print t
+		column = [ID[i], countArr[i],freq[i],comboArrStr[i]]
+		t.append(column)
+	print (tabulate(t,header))
+
+	#######making bar chart
+	ID.insert(0,0)
+	ind = np.arange(len(ID))
+	width = 0.15
+	plt.bar(ID[1:], freq)
+	plt.xticks(ind, ID)
+	plt.yticks(np.arange(0, 1.1,0.1))
+	plt.ylabel('Percentage')
+	plt.xlabel('ID')
+	plt.title('Frequency of different combinations')
+	plt.show()
+
+	#t = PrettyTable(['ID', 'Count', 'Frequency', absPosStr])
+	#for i in range(len(comboArrStr)):
+	#	t.add_row([ID[i], countArr[i],freq[i],comboArrStr[i]])
+	#print (t)
+
 	#print(countArr)
 	#print(absPos)
 	#print(absPosStr)
