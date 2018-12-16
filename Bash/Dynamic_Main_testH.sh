@@ -1,9 +1,13 @@
 
 usage="$(basename "$0") [-h] -- Calls this help page.
-$(basename "$0") [-g] 'Reads' 'Input positions' 'Referance genome' ' -w|window Window_size' '-f|filter Filter_Threshold' -- Runs the script with addtional graphical ouput in PNG.
-$(basename "$0") 'Reads' 'Input positions' 'Referance genome' 'Window size' 'Filter threshold' -- Runs the script.
-Example run:
-$(basename "$0") ./Reads ./Input_positions ./Referance_genome 15 0.95
+$(basename "$0") 'Reads' 'Input positions' 'Referance genome' [-w] 'window Window_size' [-f] 'filter Filter_Threshold'  [-g] -- Runs the script with addtional graphical figure and a more detailed text based table.
+$(basename "$0") 'Reads' 'Input positions' 'Referance genome' 'Window size' 'Filter threshold'
+Example runs:
+$(basename "$0") -h
+$(basename "$0") ./Reads ./Input_positions ./Referance_genome -w 15 -f 0.95
+$(basename "$0") ./Reads ./Input_positions ./Referance_genome -w 15 -f 0.95 -g
+$(basename "$0") ./Reads ./Input_positions ./Referance_genome
+$(basename "$0") ./Reads ./Input_positions ./Referance_genome -g
 
 Where arguments are:
 -Reads: It should contain the PacBio reads
@@ -41,7 +45,7 @@ Where flags are:
     -g|--graphic  Run script with addtional graphical output in PNG format
     -w|--window [int] set the half window size of the sequences for realignment, default value is 50 bp
     -f|--filter [0-1] set the threshold for removing bad alignments
-    no flag: Run script
+    no flag: Run script with default value on window size (50) and filter Threshold (0.95)
 
 Output:
     -resultT1.txt It contains all the reads passing the threshold where 0 for reference, 1 for alternative, and * for unresolved neculotide.
@@ -64,9 +68,8 @@ Output:
     3          1            0
     2          1            1"
 
-checkG=0
-
 POSITIONAL=()
+checkG=0
 WindowSize='50'
 FilterThrehold='0.95'
 while [[ $# -gt 0 ]]
