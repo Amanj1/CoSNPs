@@ -1,4 +1,4 @@
-
+#! /bin/bash
 usage="$(basename "$0") [-h] -- Calls this help page.
 $(basename "$0") 'Reads' 'Input positions' 'Referance genome' [-w] 'window Window_size' [-f] 'filter Filter_Threshold'  [-g] -- Runs the script with addtional graphical figure and a more detailed text based table.
 $(basename "$0") 'Reads' 'Input positions' 'Referance genome' 'Window size' 'Filter threshold'
@@ -103,42 +103,12 @@ esac
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
-#if [[ -n $1 ]]; then
-#    echo "Last line of file specified as non-opt/last argument:"
-#    tail -1 "$1"
-#fi
-
-#! /bin/bash
 echo 'Start!'
-##############TODO: input by user####################
-#TODO: error handler??#
-######################old hard coding input:
-#chrSeq='../hg19/hg19_chr17_changeName.fasta'
-#PacBioINPUT='../PacBioRead/chr17.bam'
-#Check min WindowSize
-#WindowSize=50
-#sapce delimited file
-#TODO 2/5/10/50/100
-#input="../Testing/input4POS_test.txt"
-#input="../Testing/InputPos.txt"
-#FilterThrehold='0.8'
-######################
-#####UserInput#####
-#e.g.: sh Dynamic_Main.sh ../PacBioRead/chr17.bam ../Testing/input2POS_test.txt ../hg19/hg19_chr17_changeName.fasta 50 0.8
+
 PacBioINPUT=$1
 input=$2
 chrSeq=$3
-#Check min WindowSize
-#WindowSize=$4
-#sapce delimited file
-#TODO 2/5/10/50/100
-#input="../Testing/InputPos.txt"
-#FilterThrehold=$5
-#if [ -z $5 ]
-#then
-#  FilterThrehold='0.95'
-#fi
-#error if no input argument
+
 if [ $# -eq 0 ]
 then
  echo 'System abort: missing arguments in script'
@@ -157,13 +127,12 @@ else
   exit 128
 fi
 #####################################################
-rm -f PacBio_Selected.bam
-rm -f result.txt
-cp $PacBioINPUT PacBio_Selected.bam
+rm -f Longread_Selected.bam
+rm -f result*
+cp $PacBioINPUT Longread_Selected.bam
 rm -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
 numPos=0
-#echo "Number of reads in input bam"
-#samtools view PacBio_Selected.bam | wc -l
+
 while IFS= read -r var
 do
   numPos=$((numPos+1))
@@ -186,17 +155,18 @@ do
   rm tmpSomething.fasta
 
 done < $input
-mv -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta ../Query/
+#mv -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta ../Query/
 echo "Start realignments!"
 #send the alt/ref sequences for BLASR alignment
-sh BLASRbash.sh ../Query/query_Up${WindowSize}bp_Down${WindowSize}bp.fasta $WindowSize PacBio_Selected.bam
-
+sh BLASRbash.sh query_Up${WindowSize}bp_Down${WindowSize}bp.fasta $WindowSize Longread_Selected.bam
+#remove selected long reads
+rm -f Longread_Selected.bam
 #not working for /output/1-80_minMatch12_blasrResult_halfWin55.txt
 #../output/text_minMatch12_1-40blasrResult_halfWin55.txt
 echo "Into filtering part"
 #TODO: add threhold input
 rm -f resultT1*
-BlasrOutput='../output/Dec6_minMatch12_blasrResult_halfWin'${WindowSize}'.txt'
+BlasrOutput='BlasrResult_halfWin'${WindowSize}'.txt'
 python ../Python_script/Filter_Blasr.py $BlasrOutput tmpOut1stFilter.txt
 python ../Python_script/Filter_Blasr_Bad_data.py $numPos tmpOut1stFilter.txt tmpOut2ndFilter.txt $FilterThrehold
 #handle the case where we have nMatch equal to Alt and Ref
@@ -207,11 +177,13 @@ python ../Python_script/results.py tmpOut3ndFilter.txt tmpOutresult.txt
 python ../Python_script/filter_result.py $numPos tmpOutresult.txt resultT1.txt
 python ../Python_script/Sumfilter_result_improved.py resultT1.txt resultT1_label.txt
 echo "Filtering finished"
+#TODO: add printing command
+#echo $BASH_COMMAND
 echo "Number of long reads input:"
 samtools view $PacBioINPUT | wc -l
 echo "Number of selected long reads:"
 #TODO: if selected PacBio file is empty/doesn't exist, terminate the software
-samtools view PacBio_Selected.bam | wc -l
+samtools view Longread_Selected.bam | wc -l
 echo "Number of reads containing all Pos and pass the numMatch threshold:"
 wc -l resultT1.txt
 echo "Number of reads left for summarizing:"
@@ -221,6 +193,7 @@ echo "Summary:"
 #TODO: save into file AND graphical design for the data
 cat resultT1_label.txt | sort | uniq -c > tmpOut_resultT2.txt
 awk -v OFS="\t" '$1=$1' tmpOut_resultT2.txt > resultT2.txt
+rm resultT1_label.txt
 if [ $checkG -eq 0 ]
 then
   cat resultT2.txt
