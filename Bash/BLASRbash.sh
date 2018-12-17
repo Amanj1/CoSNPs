@@ -13,8 +13,7 @@ z=1
 query=$1
 WindowSize=$2
 #remove the output file it already exist
-#rm -f ../Output/blasrResult_halfWin${WindowSize}.txt
-rm -f ../output/Dec6_minMatch12_blasrResult_halfWin${WindowSize}.txt
+rm -f BlasrResult_halfWin${WindowSize}.txt
 #read header of the input PacBioRead
 samtools view -H $inBAM > Header.sam
 for (( c=$z; c<=$y; c++ )) #starting with 0? test
@@ -22,16 +21,13 @@ do
    echo "Realigning read: $c"
    cat Header.sam > tmp.sam
    samtools view $inBAM | awk '{if((NR=='$c')) print $0}' >> tmp.sam
-   #samtools view -h -b tmp.sam > tmp.bam
    #print input PacBio read name each loop
-   #samtools view tmp.sam | awk '{print $1}'
    samtools bam2fq tmp.sam > tmp.fastq
-   #awk ' NR %4 == 1' tmp.fastq
    #convert fastQ to fasta
    cat tmp.fastq  | paste - - - - | awk -F '\t' '{print ">"$1 ; print $2;}' > tmp.fasta
    #TODO: finalize the parameters for realignments
    blasr $query tmp.fasta --minMatch 8 --minSubreadLength 1 --minReadLength 1 --maxScore 200 -m 5 \
-    >> ../output/Dec6_minMatch12_blasrResult_halfWin${WindowSize}.txt
+    >> BlasrResult_halfWin${WindowSize}.txt
     #sleep 1
     rm -f tmp*
 done
