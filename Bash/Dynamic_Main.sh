@@ -123,13 +123,13 @@ else
   exit 128
 fi
 #####################################################
-rm -f PacBio_Selected.bam
+rm -f longReads_Selected.bam
 rm -f result.txt
-cp $PacBioINPUT PacBio_Selected.bam
+cp $PacBioINPUT longReads_Selected.bam
 rm -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
 numPos=0
 #echo "Number of reads in input bam"
-#samtools view PacBio_Selected.bam | wc -l
+#samtools view longReads_Selected.bam | wc -l
 while IFS= read -r var
 do
   numPos=$((numPos+1))
@@ -152,17 +152,17 @@ do
   rm tmpSomething.fasta
 
 done < $input
-mv -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta ../Query/
+#mv -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta ../Query/
 echo "Start realignments!"
 #send the alt/ref sequences for BLASR alignment
-sh BLASRbash.sh ../Query/query_Up${WindowSize}bp_Down${WindowSize}bp.fasta $WindowSize PacBio_Selected.bam
-
+sh BLASRbash.sh query_Up${WindowSize}bp_Down${WindowSize}bp.fasta $WindowSize longReads_Selected.bam
+rm query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
 #not working for /output/1-80_minMatch12_blasrResult_halfWin55.txt
 #../output/text_minMatch12_1-40blasrResult_halfWin55.txt
 echo "Into filtering part"
 #TODO: add threhold input
 rm -f resultT1*
-BlasrOutput='../output/Dec6_minMatch12_blasrResult_halfWin'${WindowSize}'.txt'
+BlasrOutput='BlasrResult_halfWin'${WindowSize}'.txt'
 python ../Python_script/Filter_Blasr.py $BlasrOutput tmpOut1stFilter.txt
 python ../Python_script/Filter_Blasr_Bad_data.py $numPos tmpOut1stFilter.txt tmpOut2ndFilter.txt $FilterThrehold
 #handle the case where we have nMatch equal to Alt and Ref
@@ -177,7 +177,7 @@ echo "Number of long reads input:"
 samtools view $PacBioINPUT | wc -l
 echo "Number of selected long reads:"
 #TODO: if selected PacBio file is empty/doesn't exist, terminate the software
-samtools view PacBio_Selected.bam | wc -l
+samtools view longReads_Selected.bam | wc -l
 echo "Number of reads containing all Pos and pass the numMatch threshold:"
 wc -l resultT1.txt
 echo "Number of reads left for summarizing:"
