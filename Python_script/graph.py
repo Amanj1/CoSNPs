@@ -3,9 +3,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tabulate import tabulate
 
-# COMMAND: python graph.py 'InputPositions' 'resultT2'
+# COMMAND: python graph.py 'InputPositions' 'resultT2' 'fileOutputName'
 # INPUT: Pathway to text based files.
 # OUTPUT: Table and bar chart
+
+def WriteToFile(line):
+	f=open(sys.argv[3], "a+")
+	f.write(line)
+	f.close()
+	return None
 
 def main():
 	f = open(sys.argv[1])
@@ -82,8 +88,11 @@ def main():
 	for i in range(len(comboArrStr)):
 		column = [ID[i], countArr[i],freq[i],comboArrStr[i]]
 		t.append(column)
+	
+	final_table = tabulate(t,header)
 	print (tabulate(t,header))
-
+	WriteToFile(final_table)
+	
 	#######making bar chart
 	ID.insert(0,0)
 	ind = np.arange(len(ID))
@@ -94,7 +103,9 @@ def main():
 	plt.ylabel('Percentage')
 	plt.xlabel('ID')
 	plt.title('Frequency of different combinations')
-	plt.show()
+	fig.savefig('Bar_chart.png')   # save the figure to file
+	plt.close(fig) 
+	#plt.show()
 
 	#t = PrettyTable(['ID', 'Count', 'Frequency', absPosStr])
 	#for i in range(len(comboArrStr)):
