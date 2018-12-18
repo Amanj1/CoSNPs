@@ -70,6 +70,7 @@ Output:
 
 POSITIONAL=()
 checkG=0
+Prefix=''
 WindowSize='50'
 FilterThrehold='0.8'
 while [[ $# -gt 0 ]]
@@ -80,6 +81,11 @@ case $key in
     -h|--help)
     echo "$usage"
     exit
+    ;;
+    -o|--output)
+    Prefix="$2"
+    shift # past argument
+    shift # past value
     ;;
     -g|--graphic)
     checkG=1
@@ -114,6 +120,11 @@ then
  echo 'System abort: missing arguments in script'
  exit 1
 fi
+#########format prefix##
+if [ ! -z $Prefix ]
+then
+  Prefix+='_'
+fi
 ###################
 python ../Python_script/errorHandler.py $FilterThrehold $WindowSize $input > tmp_errorMsg.txt
 checkpoint=`tail -n 1 tmp_errorMsg.txt`
@@ -128,7 +139,8 @@ else
 fi
 #####################################################
 rm -f Longread_Selected.bam
-rm -f result*
+rm -f ${Prefix}result*
+rm -f ${Prefix}bar_chart.png
 cp $PacBioINPUT Longread_Selected.bam
 rm -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
 numPos=0
@@ -159,13 +171,12 @@ done < $input
 echo "Start realignments!"
 #send the alt/ref sequences for BLASR alignment
 sh BLASRbash.sh query_Up${WindowSize}bp_Down${WindowSize}bp.fasta $WindowSize Longread_Selected.bam
-#remove selected long reads
-rm -f Longread_Selected.bam
+
 #not working for /output/1-80_minMatch12_blasrResult_halfWin55.txt
 #../output/text_minMatch12_1-40blasrResult_halfWin55.txt
 echo "Into filtering part"
 #TODO: add threhold input
-rm -f resultT1*
+#rm -f ${Prefix}resultT*
 BlasrOutput='BlasrResult_halfWin'${WindowSize}'.txt'
 python ../Python_script/Filter_Blasr.py $BlasrOutput tmpOut1stFilter.txt
 python ../Python_script/Filter_Blasr_Bad_data.py $numPos tmpOut1stFilter.txt tmpOut2ndFilter.txt $FilterThrehold
@@ -174,8 +185,8 @@ python ../Python_script/Filter_Blasr_Bad_data.py $numPos tmpOut1stFilter.txt tmp
 # read 0 nMatch 1 nMatch
 python ../Python_script/Filter_Blasr_3rd.py tmpOut2ndFilter.txt tmpOut3ndFilter.txt
 python ../Python_script/results.py tmpOut3ndFilter.txt tmpOutresult.txt
-python ../Python_script/filter_result.py $numPos tmpOutresult.txt resultT1.txt
-python ../Python_script/Sumfilter_result_improved.py resultT1.txt resultT1_label.txt
+python ../Python_script/filter_result.py $numPos tmpOutresult.txt ${Prefix}resultT1.txt
+python ../Python_script/Sumfilter_result_improved.py ${Prefix}resultT1.txt ${Prefix}resultT1_label.txt
 echo "Filtering finished"
 #TODO: add printing command
 #echo $BASH_COMMAND
@@ -184,26 +195,38 @@ samtools view $PacBioINPUT | wc -l
 echo "Number of selected long reads:"
 #TODO: if selected PacBio file is empty/doesn't exist, terminate the software
 samtools view Longread_Selected.bam | wc -l
+#remove selected long reads
+rm -f Longread_Selected.bam
 echo "Number of reads containing all Pos and pass the numMatch threshold:"
-wc -l resultT1.txt
+wc -l ${Prefix}resultT1.txt
 echo "Number of reads left for summarizing:"
-wc -l resultT1_label.txt
+wc -l < ${Prefix}resultT1_label.txt
 echo "Summary:"
 #summary final data:
 #TODO: save into file AND graphical design for the data
-cat resultT1_label.txt | sort | uniq -c > tmpOut_resultT2.txt
-awk -v OFS="\t" '$1=$1' tmpOut_resultT2.txt > resultT2.txt
-rm resultT1_label.txt
+cat ${Prefix}resultT1_label.txt | sort | uniq -c > tmpOut_resultT2.txt
+#replacing empty lines/spaces? with /t
+awk -v OFS="\t" '$1=$1' tmpOut_resultT2.txt > ${Prefix}resultT2.txt
+rm ${Prefix}resultT1_label.txt
 if [ $checkG -eq 0 ]
 then
-  cat resultT2.txt
+  cat ${Prefix}resultT2.txt
 fi
+
+if [ -z $Prefix ]
+then
+  Prefix2+='!@?'
+else
+  Prefix2=$Prefix
+fi
+
 
 if [ $checkG -eq 1 ]
 then
-  python ../Python_script/graph.py $input resultT2.txt > resultT3.txt
+  python ../Python_script/graph.py $input ${Prefix}resultT2.txt ${Prefix}resultT3.txt ${Prefix2}
 fi
-
+#add header for T2
+echo 'Count	Position(s)' | cat - ${Prefix}resultT2.txt > temp && mv temp ${Prefix}resultT2.txt 
 rm tmpOut*
 #remove the tmp file, use mv if needed to save
 rm Header.sam
