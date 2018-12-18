@@ -71,7 +71,7 @@ Output:
 POSITIONAL=()
 checkG=0
 WindowSize='50'
-FilterThrehold='0.95'
+FilterThrehold='0.8'
 while [[ $# -gt 0 ]]
 do
 key="$1"
@@ -201,7 +201,7 @@ fi
 
 if [ $checkG -eq 1 ]
 then
-  python ../Python_script/graph.py $input resultT2.txt
+  python ../Python_script/graph.py $input resultT2.txt > resultT3.txt
 fi
 
 rm tmpOut*
