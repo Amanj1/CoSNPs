@@ -1,8 +1,20 @@
-Software version:
+# reAli version 1.0
 
-Python 2.7.10 (default, Oct  6 2017, 22:29:07) ***(default MacOS python version)*** | Python 3.6.6 :: Anaconda, Inc. ***(for installing packages needed for -g|--graph option in graph.py file)***
+## Introduction:
 
-Python Packages (especially for: -g|--graph option):
+reAli is a software that can detect the coexistence of multiple SNPs in each single SMRT long read with higher accuracy. By assigning the positions and their mutated nucleotides, reAli can realign the reads to the original and mutated version of referencial genome and determine wheteher there is mutation for the positions. The alignment part is done by using BlasR, a software dedicates to align SMRT sequencing data to the referencial genome.
+
+
+
+## Required software:
+
+#### Python Packages (mainly for: -g|--graph option):
+
+Python 2.7.10 (default, Oct  6 2017, 22:29:07) ***(default MacOS python version)***,
+
+OR
+
+Python 3.6.6 :: Anaconda, Inc. ***(for installing packages needed for -g|--graph option in graph.py file)***
 
 | Packages   | Version | Build          |
 | ---------- | ------- | -------------- |
@@ -10,7 +22,7 @@ Python Packages (especially for: -g|--graph option):
 | tabulate   | 0.8.2   | py36_0         |
 | matplotlib | 3.0.0   | py36h54f8f79_0 |
 
-Other softwares:
+#### Other softwares:
 
 | Software | Version | Build      |
 | -------- | ------- | ---------- |
@@ -18,7 +30,7 @@ Other softwares:
 | samtools | 1.9     | h8ee4bcc_1 |
 | blasr    | 5.3.2   | hac9d22c_4 |
 
-Install reMatch:
+## Install reMatch:
 
 1. Download the github repository.
 
@@ -31,6 +43,14 @@ Install reMatch:
    $ export PATH=/Users/apple/Documents/reAli:$PATH
    ```
 
+   For permenently add the file to $PATH:
+
+   ```bash
+   sudo nano /etc/paths
+   ```
+
+   Then add the path to the reAli folder.
+
 3. Add permissions to all the files in Main folder :
 
    ```bash
@@ -38,24 +58,29 @@ Install reMatch:
    ```
 
 
+## Help function/ Wiki page:
 
-Help function/ Wiki page:
-
-Call the help help function with -h|--help
+help function with -h|--help
 
 Link to wiki page:
 
 
 
-Example run:
+## Example run:
 
-Download hg19-chr17 testing data: https://drive.google.com/drive/folders/1nQAvPAJ8RqW8NmK8poa7au844I_-OrcT?usp=sharing
+##### Download referential genome: hg19-chr17.fasta (79M):
 
-Test data available: **./Testing/input2POS_test.txt** input file for the positions of interest.
+ https://drive.google.com/drive/folders/1nQAvPAJ8RqW8NmK8poa7au844I_-OrcT?usp=sharing
+
+*For referential genome .fast file and position file, they should have the same header.
+
+##### Testing data available in this repository: 
+
+**./Testing/input2POS_test.txt** input file for the positions of interest.
 
 **./Testing/chr17.bam** input file for the mapped long read
 
-Running the reAli:
+#### Running the reAli:
 
 ```bash
 #example
