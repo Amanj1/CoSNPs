@@ -110,7 +110,8 @@ done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
 echo 'Start!'
-
+echo 'Current directory:'
+pwd
 PacBioINPUT=$1
 input=$2
 chrSeq=$3
@@ -126,7 +127,7 @@ then
   Prefix+='_'
 fi
 ###################
-python ./Python_script/errorHandler.py $FilterThrehold $WindowSize $input > tmp_errorMsg.txt
+errorHandler.py $FilterThrehold $WindowSize $input > tmp_errorMsg.txt
 checkpoint=`tail -n 1 tmp_errorMsg.txt`
 if [ $checkpoint = '0' ]
 then
@@ -144,7 +145,7 @@ rm -f ${Prefix}bar_chart.png
 cp $PacBioINPUT Longread_Selected.bam
 rm -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta
 numPos=0
-
+echo "Selecting long reads from the .bam input mapped to the positions of interest..."
 while IFS= read -r var
 do
   numPos=$((numPos+1))
@@ -155,9 +156,9 @@ do
   #Select PacBio input covering the current position
   sh SelectPacBio.sh $pos $WindowSize $numPosStr
   #Generate Alt Ref seq for alignment with WindowSize
-  python ./Python_script/scriptWindowRef.py $pos $WindowSize $numPosStr
+  scriptWindowRef.py $pos $WindowSize $numPosStr
   bedtools getfasta -fi $chrSeq -bed tmpPosRef_$numPosStr.bed -fo tmpFasta.fasta
-  python ./Python_script/generateAltseq.py $altNec tmpFasta.fasta $numPosStr $WindowSize
+  generateAltseq.py $altNec tmpFasta.fasta $numPosStr $WindowSize
   rm tmpFasta.fasta
   rm tmpPosRef_*
   #remove empty lines
@@ -174,20 +175,20 @@ sh BLASRbash.sh query_Up${WindowSize}bp_Down${WindowSize}bp.fasta $WindowSize Lo
 
 #not working for /output/1-80_minMatch12_blasrResult_halfWin55.txt
 #../output/text_minMatch12_1-40blasrResult_halfWin55.txt
-echo "Into filtering part"
+echo "Filtering..."
 #TODO: add threhold input
 #rm -f ${Prefix}resultT*
 BlasrOutput='BlasrResult_halfWin'${WindowSize}'.txt'
-python ./Python_script/Filter_Blasr.py $BlasrOutput tmpOut1stFilter.txt
-python ./Python_script/Filter_Blasr_Bad_data.py $numPos tmpOut1stFilter.txt tmpOut2ndFilter.txt $FilterThrehold
+Filter_Blasr.py $BlasrOutput tmpOut1stFilter.txt
+Filter_Blasr_Bad_data.py $numPos tmpOut1stFilter.txt tmpOut2ndFilter.txt $FilterThrehold
 #handle the case where we have nMatch equal to Alt and Ref
 #Result ouput should be: mutation boolean nMatch mutatio bolean pos 2 minMatch
 # read 0 nMatch 1 nMatch
-python ./Python_script/Filter_Blasr_3rd.py tmpOut2ndFilter.txt tmpOut3ndFilter.txt
-python ./Python_script/results.py tmpOut3ndFilter.txt tmpOutresult.txt
-python ./Python_script/filter_result.py $numPos tmpOutresult.txt ${Prefix}resultT1.txt
-python ./Python_script/Sumfilter_result_improved.py ${Prefix}resultT1.txt ${Prefix}resultT1_label.txt
-echo "Filtering finished"
+Filter_Blasr_3rd.py tmpOut2ndFilter.txt tmpOut3ndFilter.txt
+results.py tmpOut3ndFilter.txt tmpOutresult.txt
+filter_result.py $numPos tmpOutresult.txt ${Prefix}resultT1.txt
+Sumfilter_result_improved.py ${Prefix}resultT1.txt ${Prefix}resultT1_label.txt
+echo "Filtering finished."
 #TODO: add printing command
 #echo $BASH_COMMAND
 echo "Number of long reads input:"
@@ -223,7 +224,7 @@ fi
 
 if [ $checkG -eq 1 ]
 then
-  python ./Python_script/graph.py $input ${Prefix}resultT2.txt ${Prefix}resultT3.txt ${Prefix2}
+  graph.py $input ${Prefix}resultT2.txt ${Prefix}resultT3.txt ${Prefix2}
 fi
 #add header for T2
 echo 'Count	Position(s)' | cat - ${Prefix}resultT2.txt > temp && mv temp ${Prefix}resultT2.txt

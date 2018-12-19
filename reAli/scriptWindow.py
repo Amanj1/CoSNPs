@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import sys
 
 # python scriptWindow chr1:20 5 1 ########example####
@@ -29,10 +30,10 @@ def main():
 	outputUP = str(arrPos[0]) + '\t' + str(Up)  +'\t' + str(Up1)
 	outputDown = str(arrPos[0]) + '\t' + str(Down)  +'\t' + str(Down1)
 	CoverRegion = str(arrPos[0]) + '\t' + str(Down)  +'\t' + str(Up)
-	
+
 	WriteToFile("tmpUP", outputUP, suffix)
 	WriteToFile("tmpDown", outputDown, suffix)
 	WriteToFile("tmpPosRef", CoverRegion, suffix)
 	return
-	
+
 main()

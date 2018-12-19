@@ -1,7 +1,8 @@
+#!/usr/bin/python
 import sys
 # COMMAND: Python generateAltseq.py 'nucleotide' 'ReferenceSequence'
-# OUTPUT: String with new necleotide inserted in posisiton 'window+position+window' 
-# python generateRefseq.py tmpUP_1.bed tmpDown_1.bed 
+# OUTPUT: String with new necleotide inserted in posisiton 'window+position+window'
+# python generateRefseq.py tmpUP_1.bed tmpDown_1.bed
 
 def ReadFile(Fname):
 #Read file within a specific line
@@ -39,7 +40,7 @@ def GenerateSeq(startValue, startValueFile, startStr, stopValue, stopValueFile, 
 
 	totArr = StringToArrayByChar(totStr)
 	RtotArr = totArr[::-1]
-	
+
 	print("totstart and totStop and length of totARR")
 	print(totStart)
 	print(totStop)
@@ -47,7 +48,7 @@ def GenerateSeq(startValue, startValueFile, startStr, stopValue, stopValueFile, 
 	print(totArr)
 	print(totStr)
 	print(RtotArr)
-	
+
 	for i in range(len(totArr)):
 		if(i >= totStart):
 			tmpArr.append(totArr[i])
@@ -55,10 +56,10 @@ def GenerateSeq(startValue, startValueFile, startStr, stopValue, stopValueFile, 
 		   break
 	#newArr = newArr[::-1]
 
-	
+
 	print(len(tmpArr))
 	print(ArrayToString(tmpArr))
-	
+
 	#totArr = rev[::-1]
 	#arr = StringToArrayByChar(seq)
 	#newArr = arr[start:stop]
@@ -74,7 +75,7 @@ def ReadFileByLine(Fname,start,stop):
 		for line in f:
 			if c > 0:
 				posCalc = posCalc + len(StringToArrayByChar(line))
-				if posCalc >= start: 
+				if posCalc >= start:
 					str1 = str1 + line
 					if control == 0:
 						startPos = posCalc
@@ -112,13 +113,13 @@ def main():
 	upFile = sys.argv[1]
 	downFile = sys.argv[2]
 	sequenceFile = sys.argv[3]
-	
-	UpPosStr = ReadFile(upFile) 
+
+	UpPosStr = ReadFile(upFile)
 	UpPosArr = StringToArrayBySplit(UpPosStr,'\t')
-	
-	DownPosStr = ReadFile(downFile) 
+
+	DownPosStr = ReadFile(downFile)
 	DownPosArr = StringToArrayBySplit(DownPosStr,'\t')
-	
+
 	dist = distance(DownPosArr[2], UpPosArr[2])
 	print(DownPosArr[2])
 	print(UpPosArr[2])
@@ -130,5 +131,3 @@ def main():
 
 	return
 main()
-
-

@@ -1,7 +1,8 @@
+#!/usr/bin/python
 import sys
 # COMMAND: Python generateAltseq.py 'nucleotide' 'TmpReferenceSequence' 'pos of mutation' 'suffix'
 # Input file refSeq with header
-# OUTPUT: A file containing both refseq and altseq with header for both' 
+# OUTPUT: A file containing both refseq and altseq with header for both'
 
 def readFileRefseq(fname):
 	data = []
@@ -31,7 +32,7 @@ def ArrayToString(x):
 
 def FindPosMid(x):
 	#Sequences are always odd numbers (windowSize*2+1)
-	#Assumtion sequences will never start from position in the begining of chr or the end of it. 
+	#Assumtion sequences will never start from position in the begining of chr or the end of it.
 	pos = (len(x)/2)
 	return pos
 

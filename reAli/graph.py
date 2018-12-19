@@ -1,7 +1,10 @@
+#!/Users/apple/anaconda3/bin/python
 import sys
 import matplotlib.pyplot as plt
 import numpy as np
 from tabulate import tabulate
+print ('!Make sure the python packages installed to the python version defined in the first line!')
+print(sys.version)
 
 # COMMAND: python graph.py 'InputPositions' 'resultT2' 'fileOutputName' 'PrefixForBarChart'
 # INPUT: Pathway to text based files.

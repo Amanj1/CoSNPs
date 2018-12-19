@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import sys
 # COMMAND: python Filter_Blasr_3rd.py '2ndFilterOutput' 'OutputFileNameFor3rdFilter'
 # INPUT: Pathway to text based files.
@@ -24,8 +25,8 @@ def genNewString(arrPacBio):
 	for x in range(len(arrPacBio)):
 		if x == 0:
 			str1 = str1 + '*'
-		else: 
-			str1 = str1 + arrPacBio[x] 
+		else:
+			str1 = str1 + arrPacBio[x]
 	return str1
 
 def main():
@@ -39,7 +40,7 @@ def main():
 	prevline = line
 	tmpRead = line.split('\t')
 	FileName = sys.argv[2]
-	
+
 	line = f.readline()
 	currContent = line.split('\t')
 	while line:

@@ -1,7 +1,7 @@
 #!/bin/bash
 #rm results.sam
 #rm blasrResult.txt
-mkdir -p ../output
+#mkdir -p ../output
 #TODO remove the same name file
 #rm blasrResult.txt
 #inBAM='../PacBioRead/120bpSelected.bam'

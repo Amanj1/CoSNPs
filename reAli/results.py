@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import sys
 # COMMAND: python results.py 'secondFilteredBlasrFile' 'OutputFile'
 # INPUT: Pathway to text based files.

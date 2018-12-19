@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import sys
 # COMMAND: python errorHandler.py 'similarityThreshold' 'windowSize' 'InputPos(file)'
 # INPUT: Pathway to text based files.

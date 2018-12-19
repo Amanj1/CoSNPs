@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import sys
 # COMMAND: python Filter_Blasr.py 'NumberOfSNPs' 'BlasrResults' 'OutputFileNameAndPAthWay' 'InputForFilter'
 # INPUT: Pathway to text based files.

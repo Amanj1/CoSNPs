@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import sys
 # COMMAND: python filter_2ndresult.py 'ResultOutput' 'OutputForFilter'
 # INPUT: Pathway to text based files.
