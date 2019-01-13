@@ -45,6 +45,7 @@ Where flags are:
     -g|--graphic  Run script with addtional graphical output in PNG format
     -w|--window [int] set the half window size of the sequences for realignment, default value is 50 bp
     -f|--filter [0-1] set the threshold for removing bad alignments
+    -o|--output prefix the output
     no flag: Run script with default value on window size (50) and filter Threshold (0.95)
 
 Output:

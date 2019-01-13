@@ -3,7 +3,7 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 from tabulate import tabulate
-print ('!Make sure the python packages installed to the python version defined in the first line!')
+print ('If return an error, make sure the python libraries installed to the python version list below!')
 print(sys.version)
 
 # COMMAND: python graph.py 'InputPositions' 'resultT2' 'fileOutputName' 'PrefixForBarChart'
