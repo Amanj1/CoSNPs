@@ -1,6 +1,7 @@
-#!/Users/apple/anaconda3/bin/python
+#!/opt/conda/bin/python
+
 import sys
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt # remove plot function
 import numpy as np
 from tabulate import tabulate
 print ('If return an error, make sure the python libraries installed to the python version list below!')
@@ -101,16 +102,16 @@ def main():
 	WriteToFile(final_table)
 
 	#######making bar chart
-	ID.insert(0,0)
-	ind = np.arange(len(ID))
-	width = 0.15
-	plt.bar(ID[1:], freq)
-	plt.xticks(ind, ID)
-	plt.yticks(np.arange(0, 1.1,0.1))
-	plt.ylabel('Percentage')
-	plt.xlabel('ID')
-	plt.title('Frequency of different combinations')
-	plt.savefig(barChart)   # save the figure to file
+	#ID.insert(0,0)
+	#ind = np.arange(len(ID))
+	#width = 0.15
+	#plt.bar(ID[1:], freq)
+	#plt.xticks(ind, ID)
+	#plt.yticks(np.arange(0, 1.1,0.1))
+	#plt.ylabel('Percentage')
+	#plt.xlabel('ID')
+	#plt.title('Frequency of different combinations')
+	#plt.savefig(barChart)   # save the figure to file
 	#plt.close(fig)
 	#plt.show()
 
