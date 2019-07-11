@@ -1,3 +1,4 @@
+#! /bin/bash
 #example: python ./scriptWindowPacBio.py chr1:20 5 1
 rm -f tmpDown* tmpUP*
 scriptWindowPacBio.py $1 $2 $3
