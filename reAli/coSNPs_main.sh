@@ -155,7 +155,7 @@ do
   pos=`echo $var | awk -F" " '{print $1}'`
   altNec=`echo $var | awk -F" " '{print $2}'`
   #Select PacBio input covering the current position
-  sh SelectPacBio.sh $pos $WindowSize $numPosStr
+  SelectPacBio.sh $pos $WindowSize $numPosStr
   #Generate Alt Ref seq for alignment with WindowSize
   scriptWindowRef.py $pos $WindowSize $numPosStr
   bedtools getfasta -fi $chrSeq -bed tmpPosRef_$numPosStr.bed -fo tmpFasta.fasta
@@ -172,7 +172,7 @@ done < $input
 #mv -f query_Up${WindowSize}bp_Down${WindowSize}bp.fasta ../Query/
 echo "Start realignments!"
 #send the alt/ref sequences for BLASR alignment
-sh BLASRbash.sh query_Up${WindowSize}bp_Down${WindowSize}bp.fasta $WindowSize Longread_Selected.bam
+BLASRbash.sh query_Up${WindowSize}bp_Down${WindowSize}bp.fasta $WindowSize Longread_Selected.bam
 
 #not working for /output/1-80_minMatch12_blasrResult_halfWin55.txt
 #../output/text_minMatch12_1-40blasrResult_halfWin55.txt

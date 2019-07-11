@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 #rm results.sam
 #rm blasrResult.txt
 #mkdir -p ../output

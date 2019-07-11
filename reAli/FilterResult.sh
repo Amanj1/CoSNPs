@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 #not working for /output/1-80_minMatch12_blasrResult_halfWin55.txt
 #../output/text_minMatch12_1-40blasrResult_halfWin55.txt
 rm -f result.txt
