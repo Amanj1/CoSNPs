@@ -1,74 +1,66 @@
-# coSNPs version 1.0
+# coSNPs version 1.1
 
 ## Introduction:
 
-reAli is a software that can detect the coexistence of multiple SNPs in each single SMRT long read with higher accuracy. By assigning the positions and their mutated nucleotides, reAli can realign the reads to the original and mutated version of referencial genome and determine wheteher there is mutation for the positions. The alignment part is done by using BlasR, a software dedicates to align SMRT sequencing data to the referencial genome.
+coSNPs is a software that can detect the coexistence of multiple SNPs in each single SMRT long read with higher accuracy using local realignment. 
+
+By assigning the positions and their mutated nucleotides, coSNPs can realign the reads to the original and mutated version of referential sequence and determine the nucleotide of the position of interest. The alignment part is done by using [blasr](https://github.com/PacificBiosciences/blasr) a software dedicates to align SMRT sequencing data to the referencial genome.
 
 
 
 ## Required software:
 
-#### Python Packages (mainly for: -g|--graph option):
+#### Python Packages:
 
-Python 2.7.10 (default, Oct  6 2017, 22:29:07) ***(default MacOS python version)***,
-
-#### Languages
-
-Python 3.6.6 :: Anaconda, Inc., Bash/Linux
+Python 2.7.16 :: Anaconda, Inc.
 
 | Python packages | Version | Build          |
 | --------------- | ------- | -------------- |
-| numpy           | 1.15.4  | py36h6a91979_0 |
-| tabulate        | 0.8.2   | py36_0         |
-| matplotlib      | 3.0.0   | py36h54f8f79_0 |
+| numpy           | 1.16.4  | py27h7e9f1db_0 |
+| tabulate        | 0.8.3   | py_0           |
 | sys             | default | default        |
 
 #### Other softwares:
 
-| Software | Version | Build      |
-| -------- | ------- | ---------- |
-| bedtools | 2.27.1  | ha92aebf_2 |
-| samtools | 1.9     | h8ee4bcc_1 |
-| blasr    | 5.3.2   | hac9d22c_4 |
+| Software | Version | Build       |
+| -------- | ------- | ----------- |
+| bedtools | 2.28.0  | hdf88d34_0  |
+| samtools | 1.9     | h8571acd_11 |
+| blasr    | 5.3.3   | h707fff8_0  |
 
-## Install reMatch:
+## Install coSNPs:
 
-1. Download the github repository.
+We recommend running the analysis by [docker](https://docs.docker.com/):
 
-2. Add the reMap folder to $PATH:
+1. Install docker
+
+2. Download the GitHub repository
+
+3. Inside the [`Docker`]/() folder:
 
    ```bash
-   #example:
-   $ pwd
-   /Users/apple/Documents/reAli
-   $ export PATH=/Users/apple/Documents/reAli:$PATH
+   # Build image defined in ./Dockerfile
+   docker build --tag=cosnps_image .
+   # Start container in background
+   sudo docker run -d \
+   -v /PATH_REPOSITORY_OF_COSNPS/main:/home/Connected --name cosnps_container \
+   -it cosnps_image
+   # Execute an interactive bash shell on the container
+   sudo docker exec -i -t cosnps_container /bin/bash
    
-   (base) student-219-62:test apple$ echo $PATH
-   /Users/apple/Documents/AppliedBioinformatics/GitFolder/Applied_Bioinformatics_Xdrop/reAli:/Users/apple/Documents/AppliedBioinformatics/GitFolder/Applied_Bioinformatics_Xdrop/Bash:/Users/apple/biosoft/myBin/bin:/Users/apple/anaconda3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/ncbi/blast/bin:/opt/X11/bin
+   # To exit the interactie container:
+   exit
+   # To kill the container:
+   docker kill cosnps_container
+   # To remove the docker image:
+   docker image rm cosnps_image
    ```
 
-   For permenently add the file to $PATH:
+## Help function/Wiki page:
 
-   ```bash
-   sudo nano /etc/paths
-   ```
+help function with `coSNPs_main.sh -h|—help`
 
-   Then add the path to the reAli folder.
-
-3. Add permissions to all the files in Main folder :
-
-   ```bash
-   $ chmod +x *
-   ```
-
-
-## Help function/ Wiki page:
-
-help function with -h|--help
-
-Link to wiki page:
-
-
+Wiki page:
 
 ## Example run:
 
@@ -80,11 +72,11 @@ Link to wiki page:
 
 ##### Testing data available in this repository: 
 
-**./Testing/input2POS_test.txt** input file for the positions of interest.
+**[./Testing/input2POS_test.txt](https://github.com/Amanj1/Applied_Bioinformatics_Xdrop/blob/Deliverable/Testing/input2POS_test.txt)** input file for the positions of interest.
 
-**./Testing/chr17.bam** input file for the mapped long read
+**[./Testing/chr17.bam](https://github.com/Amanj1/Applied_Bioinformatics_Xdrop/blob/Deliverable/Testing/chr17.bam)** input file for the mapped long read
 
-#### Running the reAli:
+#### Running the coSNPs:
 
 ```bash
 #example
@@ -95,7 +87,7 @@ $ coSNPs_main.sh -g ../Applied_Bioinformatics_Xdrop/Testing/chr17.bam ../Applied
 
 ```
 
-Example output with
+Example output
 
 ```bash
 $ coSNPs_main.sh ../Applied_Bioinformatics_Xdrop/Testing/chr17.bam \ ../Applied_Bioinformatics_Xdrop/Testing/input2POS_test.txt \ ../Applied_Bioinformatics_Xdrop/hg19/hg19_chr17_changeName.fasta -g
@@ -121,7 +113,7 @@ If return an error, make sure the python libraries installed to the python versi
    3       32    0.603774   1		0
    4        1    0.0188679  1		1
 
-#running with 6 position
+#Running with 6 position (input6POS_test.txt)
 
 Number of long reads input:
     3360
@@ -141,9 +133,5 @@ If return an error, make sure the python libraries installed to the python versi
    2        8    0.333333   0		1		1		1		1		1
    3       14    0.583333   1		0		1		1		1		1
    4        1    0.0416667  1		1		1		1		1		1
-```
-
-```
-coSNPs_main.sh ../Applied_Bioinformatics_Xdrop/Testing/chr17.bam ../Applied_Bioinformatics_Xdrop/Testing/input4POS_test.txt ../Applied_Bioinformatics_Xdrop/hg19/hg19_chr17_changeName.fasta 
 ```
 
