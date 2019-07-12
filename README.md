@@ -36,14 +36,25 @@ We recommend running the analysis by [docker](https://docs.docker.com/):
 
 2. Download the GitHub repository
 
+   ```bash
+   mkdir -p ~/Documents/GitHub2
+   cd ~/Documents/GitHub2
+   git clone ....
+   cd ~/
+   ```
+
+   
+
 3. Inside the [`Docker`]/() folder:
 
    ```bash
+   # Inside the Docker folder:
+   cd Docker
    # Build image defined in ./Dockerfile
    docker build --tag=cosnps_image .
    # Start container in background
    sudo docker run -d \
-   -v /PATH_REPOSITORY_OF_COSNPS/main:/home/Connected --name cosnps_container \
+   -v /PATH_REPOSITORY_OF_COSNPS:/home/Connected --name cosnps_container \
    -it cosnps_image
    # Execute an interactive bash shell on the container
    sudo docker exec -i -t cosnps_container /bin/bash
@@ -54,6 +65,10 @@ We recommend running the analysis by [docker](https://docs.docker.com/):
    docker kill cosnps_container
    # To remove the docker image:
    docker image rm cosnps_image
+   
+   sudo docker run -d \
+   -v /Users/zhili290/Documents/GitHub:/home/Connected --name cosnps_container \
+   -it cosnps_image
    ```
 
 ## Help function/Wiki page:
